@@ -5,3 +5,14 @@ declare module 'next-auth' {
     role: Role;
   }
 }
+
+export type BlogFormState = {
+  errorMsg?: string;
+  fieldErrors?: {
+    title?: string[];
+    categoryName?: string[];
+    description?: string[];
+    image?: string[];
+    content?: string[];
+  };
+};
