@@ -16,3 +16,14 @@ export type BlogFormState = {
     content?: string[];
   };
 };
+
+export type BlogFilters = {
+  query?: string;
+  categoryName?: string;
+  userId?: string;
+};
+
+export type BlogsPageSearchParams = Omit<BlogFilters, 'userId'> & {
+  orderBy?: string;
+  page?: string;
+};

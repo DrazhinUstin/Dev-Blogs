@@ -46,5 +46,5 @@ export async function createBlog(
     };
   }
   revalidatePath('/');
-  redirect('/');
+  redirect('/dashboard/blogs');
 }
