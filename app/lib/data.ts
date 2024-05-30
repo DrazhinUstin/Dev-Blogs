@@ -1,4 +1,5 @@
 import { prisma } from '@/client';
+import { cache } from 'react';
 import type { Prisma } from '@prisma/client';
 import type { BlogFilters } from '@/app/lib/types';
 
@@ -67,6 +68,7 @@ export async function fetchBlogs(
       take: blogsPerPage,
       select: {
         id: true,
+        userId: true,
         categoryName: true,
         title: true,
         description: true,
@@ -118,5 +120,15 @@ export async function fetchBlogsTotalPages(filters: BlogFilters) {
   } catch (error) {
     console.error('Database Error:', error);
     throw Error('Failed to fetch blogs total pages');
+  }
+}
+
+export async function fetchBlogById(id: string) {
+  try {
+    const blog = await prisma.blog.findUnique({ where: { id } });
+    return blog;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw Error('Failed to fetch blog');
   }
 }
