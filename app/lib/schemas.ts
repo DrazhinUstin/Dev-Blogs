@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { Gender } from '@prisma/client';
 
 const maxStrLength = 1000;
 
@@ -10,6 +11,10 @@ const requiredString = z
   });
 
 const optionalString = z.string().max(maxStrLength).optional();
+
+const optionalEmail = z.string().email().max(maxStrLength).optional().or(z.literal(''));
+
+const optionalUrl = z.string().url().max(maxStrLength).optional().or(z.literal(''));
 
 const ImageSchema = z
   .custom<File | undefined>()
@@ -27,4 +32,15 @@ export const BlogFormSchema = z.object({
   description: optionalString,
   image: ImageSchema,
   content: requiredString,
+});
+
+export const ProfileFormSchema = z.object({
+  fullName: requiredString,
+  gender: z.nativeEnum(Gender).optional(),
+  avatar: ImageSchema,
+  email: optionalEmail,
+  websiteUrl: optionalUrl,
+  githubUrl: optionalUrl,
+  linkedinUrl: optionalUrl,
+  bio: optionalString,
 });

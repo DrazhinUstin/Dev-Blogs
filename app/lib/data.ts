@@ -13,6 +13,16 @@ export async function fetchUser(email: string) {
   }
 }
 
+export async function fetchProfile(userId: string) {
+  try {
+    const profile = await prisma.profile.findUnique({ where: { userId } });
+    return profile;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw Error('Failed to fetch profile');
+  }
+}
+
 export async function fetchCategories() {
   try {
     const categories = await prisma.category.findMany();

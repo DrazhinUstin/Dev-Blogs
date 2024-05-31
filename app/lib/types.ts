@@ -27,3 +27,17 @@ export type BlogsPageSearchParams = Omit<BlogFilters, 'userId'> & {
   orderBy?: string;
   page?: string;
 };
+
+export type ProfileFormState = {
+  errorMsg?: string;
+  fieldErrors?: {
+    fullName?: string[];
+    gender?: string[];
+    email?: string[];
+    websiteUrl?: string[];
+    githubUrl?: string[];
+    linkedinUrl?: string[];
+    avatar?: string[];
+    bio?: string[];
+  };
+};

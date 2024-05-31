@@ -5,9 +5,9 @@ import { prisma } from '@/client';
 import { put, del, BlobAccessError, BlobStoreSuspendedError } from '@vercel/blob';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { BlogFormSchema } from '@/app/lib/schemas';
-import type { Blog } from '@prisma/client';
-import type { BlogFormState } from './types';
+import { BlogFormSchema, ProfileFormSchema } from '@/app/lib/schemas';
+import type { Blog, Profile } from '@prisma/client';
+import type { BlogFormState, ProfileFormState } from './types';
 
 export async function createBlog(
   prevState: BlogFormState,
@@ -111,4 +111,52 @@ export async function deleteBlog(id: string, imageUrl: Blog['imageUrl'], formDat
   } catch (error) {
     throw Error('Database error: Failed to delete a blog');
   }
+}
+
+export async function upsertProfile(
+  existingAvatarUrl: Profile['avatarUrl'],
+  prevState: ProfileFormState,
+  formData: FormData
+): Promise<ProfileFormState> {
+  const validatedFields = ProfileFormSchema.safeParse(Object.fromEntries(formData.entries()));
+  if (!validatedFields.success) {
+    return {
+      errorMsg: 'Invalid fields: Fix the errors and click the submit button again',
+      fieldErrors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+  const user = (await auth())?.user;
+  if (!user?.id) {
+    throw Error('Not authorized access: Failed to upsert a profile');
+  }
+  const { avatar, ...rest } = validatedFields.data;
+  let avatarUrl: Profile['avatarUrl'] = null;
+  try {
+    if (avatar) {
+      if (existingAvatarUrl) {
+        await del(existingAvatarUrl);
+      }
+      const blob = await put(`avatars/${avatar.name}`, avatar, { access: 'public' });
+      avatarUrl = blob.url;
+    }
+    await prisma.profile.upsert({
+      where: { userId: user.id },
+      update: { ...rest, ...(avatarUrl && { avatarUrl }) },
+      create: { userId: user.id, avatarUrl, ...rest },
+    });
+  } catch (error) {
+    if (error instanceof BlobAccessError) {
+      return {
+        errorMsg: 'Storage error: Failed to upload an image',
+      };
+    }
+    if (error instanceof BlobStoreSuspendedError) {
+      return { errorMsg: 'Storage error: The store has been suspended' };
+    }
+    return {
+      errorMsg: 'Database error: Failed to upsert a profile ',
+    };
+  }
+  revalidatePath('/');
+  redirect('/profile');
 }
