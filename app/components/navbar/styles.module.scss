@@ -1,0 +1,121 @@
+@use '@/app/scss/mixins';
+
+.container {
+  position: sticky;
+  top: 0;
+  height: var(--navbar-height);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--background-color);
+  z-index: 999;
+
+  &>div {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.links_menu {
+  display: flex;
+  column-gap: 1rem;
+
+  @include mixins.breakpoint-down(md) {
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    bottom: 0;
+    width: 50%;
+    transform: translateX(-100%);
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--color-white);
+    transition: var(--transition);
+    transition-property: transform;
+
+    a {
+      opacity: 0;
+    }
+
+    &.menu_open {
+      transform: translate(0);
+    }
+  }
+
+  &_toggle_btn {
+    order: -1;
+    position: relative;
+    width: 1.5rem;
+    height: 1rem;
+    display: none;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+
+    @include mixins.breakpoint-down(md) {
+      display: grid;
+    }
+
+    span {
+      width: 100%;
+      height: 2px;
+      background-color: var(--color-black);
+      transition: var(--transition);
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: inherit;
+        height: inherit;
+        background-color: var(--color-black);
+        transition: inherit;
+      }
+
+      &::after {
+        top: unset;
+        bottom: 0;
+      }
+    }
+
+    &.menu_open {
+      span {
+        background-color: transparent;
+
+        &::before {
+          top: unset;
+          transform: rotate(225deg);
+        }
+
+        &::after {
+          bottom: unset;
+          transform: rotate(-225deg);
+        }
+      }
+    }
+  }
+}
+
+.user_menu {
+  position: relative;
+
+  img {
+    cursor: pointer;
+  }
+
+  &>div {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    width: max-content;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--background-color);
+  }
+}

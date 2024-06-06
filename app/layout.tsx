@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { inter } from '@/app/lib/fonts';
+import Navbar from '@/app/components/navbar';
 import '@/app/scss/globals.scss';
 
 export const metadata: Metadata = {
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
