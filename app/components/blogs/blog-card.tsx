@@ -16,7 +16,7 @@ export default async function BlogCard({
   const user = (await auth())?.user;
   return (
     <article>
-      <Image src={imageUrl || ''} alt='blog-image' width={100} height={100} />
+      {imageUrl && <Image src={imageUrl} alt='blog-image' width={100} height={100} />}
       <h4>{title}</h4>
       <p>{categoryName}</p>
       <p>{description}</p>
@@ -26,6 +26,7 @@ export default async function BlogCard({
           <DeleteBlogForm id={id} imageUrl={imageUrl} />
         </div>
       )}
+      <Link href={`/blogs/${id}`}>Browse</Link>
     </article>
   );
 }

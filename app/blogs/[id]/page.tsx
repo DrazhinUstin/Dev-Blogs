@@ -1,6 +1,8 @@
 import { fetchBlogById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 import BlogDetails from '@/app/components/blogs/blog-details';
+import BlogLikes from '@/app/components/blogs/blog-likes';
 import type { Metadata } from 'next';
 
 interface Props {
@@ -25,6 +27,9 @@ export default async function Page({ params: { id } }: Props) {
   return (
     <main>
       <BlogDetails {...blog} />
+      <Suspense fallback={<h2>LOADING BLOG LIKES...</h2>}>
+        <BlogLikes blogId={blog.id} />
+      </Suspense>
     </main>
   );
 }

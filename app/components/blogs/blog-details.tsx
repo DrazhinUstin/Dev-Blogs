@@ -12,7 +12,7 @@ export default function BlogDetails({
 }: Blog) {
   return (
     <div>
-      <Image src={imageUrl || ''} alt='blog-image' />
+      {imageUrl && <Image src={imageUrl} alt='blog-image' width={100} height={100} />}
       <h2>{title}</h2>
       <p>{categoryName}</p>
       <p>{description}</p>
