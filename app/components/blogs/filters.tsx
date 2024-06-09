@@ -3,6 +3,7 @@
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import FormSubmitBtn from '@/app/components/form-submit-btn';
 import type { Category } from '@prisma/client';
+import type { BlogFilters } from '@/app/lib/types';
 
 export default function Filters({ categories }: { categories: Category[] }) {
   const searchParams = useSearchParams();
@@ -13,8 +14,9 @@ export default function Filters({ categories }: { categories: Category[] }) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const values = Object.fromEntries(formData.entries()) as Record<string, string>;
+    const { withLikes } = values;
     const params = new URLSearchParams(searchParams);
-    Object.entries(values).map(([key, value]) => {
+    Object.entries({ ...values, ...(!withLikes && { withLikes }) }).map(([key, value]) => {
       if (value) {
         params.set(key, value);
       } else {
@@ -51,6 +53,16 @@ export default function Filters({ categories }: { categories: Category[] }) {
             </option>
           ))}
         </select>
+      </div>
+      <div>
+        <label htmlFor='withLikes'>Only with likes:</label>
+        <input
+          type='checkbox'
+          name='withLikes'
+          id='withLikes'
+          value={'true' satisfies BlogFilters['withLikes']}
+          defaultChecked={Boolean(searchParams.get('withLikes'))}
+        />
       </div>
       <FormSubmitBtn>apply</FormSubmitBtn>
     </form>

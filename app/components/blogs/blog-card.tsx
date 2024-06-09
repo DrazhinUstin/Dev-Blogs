@@ -12,6 +12,7 @@ export default async function BlogCard({
   categoryName,
   description,
   imageUrl,
+  likesCount,
 }: Prisma.PromiseReturnType<typeof fetchBlogs>[0]) {
   const user = (await auth())?.user;
   return (
@@ -20,6 +21,7 @@ export default async function BlogCard({
       <h4>{title}</h4>
       <p>{categoryName}</p>
       <p>{description}</p>
+      <p>{likesCount} likes</p>
       {userId === user?.id && (
         <div>
           <Link href={`/dashboard/blogs/${id}/edit`}>edit</Link>

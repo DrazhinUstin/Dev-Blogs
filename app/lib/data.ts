@@ -41,7 +41,7 @@ export async function fetchBlogs(
   page: number
 ) {
   try {
-    const { query, categoryName, userId } = filters;
+    const { query, categoryName, withLikes, userId } = filters;
     const queryWhereInput: Prisma.BlogWhereInput = {
       OR: [
         {
@@ -63,10 +63,14 @@ export async function fetchBlogs(
         equals: categoryName,
       },
     };
+    const withLikesWhereInput: Prisma.BlogWhereInput = {
+      likes: { some: {} },
+    };
     const where: Prisma.BlogWhereInput = {
       AND: [
         query ? queryWhereInput : {},
         categoryName ? categoryWhereInput : {},
+        withLikes ? withLikesWhereInput : {},
         userId ? { userId } : {},
       ],
     };
@@ -83,9 +87,10 @@ export async function fetchBlogs(
         title: true,
         description: true,
         imageUrl: true,
+        _count: { select: { likes: true } },
       },
     });
-    return blogs;
+    return blogs.map(({ _count, ...blog }) => ({ ...blog, likesCount: _count.likes }));
   } catch (error) {
     console.error('Database Error:', error);
     throw Error('Failed to fetch blogs');
@@ -94,7 +99,7 @@ export async function fetchBlogs(
 
 export async function fetchBlogsTotalPages(filters: BlogFilters) {
   try {
-    const { query, categoryName, userId } = filters;
+    const { query, categoryName, withLikes, userId } = filters;
     const queryWhereInput: Prisma.BlogWhereInput = {
       OR: [
         {
@@ -116,10 +121,14 @@ export async function fetchBlogsTotalPages(filters: BlogFilters) {
         equals: categoryName,
       },
     };
+    const withLikesWhereInput: Prisma.BlogWhereInput = {
+      likes: { some: {} },
+    };
     const where: Prisma.BlogWhereInput = {
       AND: [
         query ? queryWhereInput : {},
         categoryName ? categoryWhereInput : {},
+        withLikes ? withLikesWhereInput : {},
         userId ? { userId } : {},
       ],
     };
@@ -140,5 +149,51 @@ export async function fetchBlogById(id: string) {
   } catch (error) {
     console.error('Database Error:', error);
     throw Error('Failed to fetch blog');
+  }
+}
+
+export async function fetchUserLikedBlogs(
+  userId: string,
+  orderBy: Prisma.UsersOnBlogsOrderByWithRelationInput,
+  page: number
+) {
+  try {
+    const blogs = (
+      await prisma.usersOnBlogs.findMany({
+        where: { userId },
+        orderBy,
+        skip: (page - 1) * blogsPerPage,
+        take: blogsPerPage,
+        select: {
+          blog: {
+            select: {
+              id: true,
+              userId: true,
+              categoryName: true,
+              title: true,
+              description: true,
+              imageUrl: true,
+              _count: { select: { likes: true } },
+            },
+          },
+        },
+      })
+    ).map(({ blog: { _count, ...blog } }) => ({ ...blog, likesCount: _count.likes }));
+    return blogs;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw Error('Failed to fetch user liked blogs');
+  }
+}
+
+export async function fetchUserLikedBlogsTotalPages(userId: string) {
+  try {
+    const count = await prisma.usersOnBlogs.count({
+      where: { userId },
+    });
+    return Math.ceil(count / blogsPerPage);
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw Error('Failed to fetch user liked blogs total pages');
   }
 }

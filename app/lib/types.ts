@@ -1,4 +1,4 @@
-import { Role } from '@prisma/client';
+import { Role, Blog } from '@prisma/client';
 
 declare module 'next-auth' {
   interface User {
@@ -20,7 +20,8 @@ export type BlogFormState = {
 export type BlogFilters = {
   query?: string;
   categoryName?: string;
-  userId?: string;
+  withLikes?: 'true';
+  userId?: Blog['userId'];
 };
 
 export type BlogsPageSearchParams = Omit<BlogFilters, 'userId'> & {
