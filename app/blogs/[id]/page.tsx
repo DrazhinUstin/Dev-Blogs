@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import BlogDetails from '@/app/components/blogs/blog-details';
 import BlogLikes from '@/app/components/blogs/blog-likes';
+import BlogComments from '@/app/components/comments/blog-comments';
 import type { Metadata } from 'next';
 
 interface Props {
@@ -30,6 +31,7 @@ export default async function Page({ params: { id } }: Props) {
       <Suspense fallback={<h2>LOADING BLOG LIKES...</h2>}>
         <BlogLikes blogId={blog.id} />
       </Suspense>
+      <BlogComments blogId={blog.id} />
     </main>
   );
 }

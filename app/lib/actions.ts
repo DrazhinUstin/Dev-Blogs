@@ -5,7 +5,7 @@ import { prisma } from '@/client';
 import { put, del, BlobAccessError, BlobStoreSuspendedError } from '@vercel/blob';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { BlogFormSchema, ProfileFormSchema } from '@/app/lib/schemas';
+import { BlogFormSchema, ProfileFormSchema, requiredString } from '@/app/lib/schemas';
 import type { Blog, Profile } from '@prisma/client';
 import type { BlogFormState, ProfileFormState } from './types';
 
@@ -110,6 +110,64 @@ export async function deleteBlog(id: string, imageUrl: Blog['imageUrl'], formDat
     revalidatePath('/');
   } catch (error) {
     throw Error('Database error: Failed to delete a blog');
+  }
+}
+
+export async function addComment(
+  blogId: string,
+  prevState: string | undefined,
+  formData: FormData
+): Promise<string | undefined> {
+  const validatedField = requiredString.safeParse(formData.get('text'));
+  if (!validatedField.success) {
+    return validatedField.error.errors[0].message;
+  }
+  const user = (await auth())?.user;
+  if (!user?.id) {
+    throw Error('Not authorized access: Failed to add a comment');
+  }
+  try {
+    await prisma.comment.create({ data: { text: validatedField.data, userId: user.id, blogId } });
+    revalidatePath('/');
+  } catch (error) {
+    return 'Database error: Failed to add a comment';
+  }
+}
+
+export async function replyOnComment(
+  commentId: string,
+  blogId: string,
+  prevState: string | undefined,
+  formData: FormData
+): Promise<string | undefined> {
+  const validatedField = requiredString.safeParse(formData.get('text'));
+  if (!validatedField.success) {
+    return validatedField.error.errors[0].message;
+  }
+  const user = (await auth())?.user;
+  if (!user?.id) {
+    throw Error('Not authorized access: Failed to reply on a comment');
+  }
+  try {
+    await prisma.comment.create({
+      data: { text: validatedField.data, userId: user.id, blogId, commentId },
+    });
+    revalidatePath('/');
+  } catch (error) {
+    return 'Database error: Failed to reply on a comment';
+  }
+}
+
+export async function deleteComment(id: string) {
+  const user = (await auth())?.user;
+  if (!user) {
+    throw Error('Not authorized access: Failed to delete a comment');
+  }
+  try {
+    await prisma.comment.delete({ where: { id } });
+    revalidatePath('/');
+  } catch (error) {
+    throw Error('Database error: Failed to delete a comment');
   }
 }
 

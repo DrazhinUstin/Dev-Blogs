@@ -197,3 +197,24 @@ export async function fetchUserLikedBlogsTotalPages(userId: string) {
     throw Error('Failed to fetch user liked blogs total pages');
   }
 }
+
+const commentsPerPage = 20;
+
+export async function fetchBlogComments(blogId: string, page: number) {
+  try {
+    const comments = await prisma.comment.findMany({
+      where: { blogId },
+      orderBy: { createdAt: 'desc' },
+      skip: (page - 1) * commentsPerPage,
+      take: commentsPerPage,
+      include: {
+        replyOn: { select: { id: true, text: true } },
+        user: { select: { name: true, image: true } },
+      },
+    });
+    return comments;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw Error('Failed to fetch blog comments');
+  }
+}

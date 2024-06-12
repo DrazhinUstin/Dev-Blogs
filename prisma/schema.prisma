@@ -21,6 +21,7 @@ model User {
   profile       Profile?
   blogs         Blog[]
   likedBlogs    UsersOnBlogs[]
+  comments      Comment[]
 
   @@map("users")
 }
@@ -94,6 +95,7 @@ model Blog {
   user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   Category     Category       @relation(fields: [categoryName], references: [name], onDelete: Cascade)
   likes        UsersOnBlogs[]
+  comments     Comment[]
 
   @@map("blogs")
 }
@@ -106,4 +108,20 @@ model UsersOnBlogs {
   likedAt DateTime @default(now())
 
   @@id([userId, blogId])
+}
+
+model Comment {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  blogId     String
+  blog       Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  commentId  String?  @unique
+  replyOn    Comment? @relation("CommentReply", fields: [commentId], references: [id], onDelete: Cascade)
+  respondent Comment? @relation("CommentReply")
+  text       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("comments")
 }

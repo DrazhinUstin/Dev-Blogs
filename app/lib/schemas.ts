@@ -3,7 +3,7 @@ import { Gender } from '@prisma/client';
 
 const maxStrLength = 1000;
 
-const requiredString = z
+export const requiredString = z
   .string()
   .refine((val) => val.trim().length >= 1, { message: 'Required' })
   .refine((val) => val.length <= maxStrLength, {
