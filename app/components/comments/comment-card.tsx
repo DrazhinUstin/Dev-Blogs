@@ -4,6 +4,7 @@ import CommentCardReply from './comment-card-reply';
 import type { Prisma } from '@prisma/client';
 import { fetchBlogComments } from '@/app/lib/data';
 import DeleteCommentForm from './delete-comment-form';
+import CommentCardEdit from './comment-card-edit';
 
 export default async function CommentCard({
   id,
@@ -27,7 +28,12 @@ export default async function CommentCard({
         </p>
       )}
       <p>{text}</p>
-      {user?.id === userId && <DeleteCommentForm commentId={id} />}
+      {user?.id === userId && (
+        <>
+          <DeleteCommentForm commentId={id} />
+          <CommentCardEdit commentId={id} commentText={text} />
+        </>
+      )}
       {user && user.id !== userId && <CommentCardReply commentId={id} />}
     </div>
   );

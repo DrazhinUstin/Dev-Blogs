@@ -8,7 +8,7 @@ import { replyOnComment } from '@/app/lib/actions';
 import FormSubmitBtn from '@/app/components/form-submit-btn';
 
 export default function CommentCardReply({ commentId }: { commentId: string }) {
-  const [isReplyFormOpen, setIsReplyFormOpen] = useState(false);
+  const [isReplyFormOpen, setIsReplyFormOpen] = useState<boolean>(false);
 
   return (
     <div>

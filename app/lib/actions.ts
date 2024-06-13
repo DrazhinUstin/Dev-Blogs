@@ -134,6 +134,27 @@ export async function addComment(
   }
 }
 
+export async function editComment(
+  commentId: string,
+  prevState: string | undefined,
+  formData: FormData
+): Promise<string | undefined> {
+  const validatedField = requiredString.safeParse(formData.get('text'));
+  if (!validatedField.success) {
+    return validatedField.error.errors[0].message;
+  }
+  const user = (await auth())?.user;
+  if (!user) {
+    throw Error('Not authorized access: Failed to edit a comment');
+  }
+  try {
+    await prisma.comment.update({ where: { id: commentId }, data: { text: validatedField.data } });
+    revalidatePath('/');
+  } catch (error) {
+    return 'Database error: Failed to edit a comment';
+  }
+}
+
 export async function replyOnComment(
   commentId: string,
   blogId: string,
