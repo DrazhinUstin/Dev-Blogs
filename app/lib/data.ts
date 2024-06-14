@@ -144,7 +144,14 @@ export async function fetchBlogsTotalPages(filters: BlogFilters) {
 
 export async function fetchBlogById(id: string) {
   try {
-    const blog = await prisma.blog.findUnique({ where: { id } });
+    const blog = await prisma.blog.findUnique({
+      where: { id },
+      include: { _count: { select: { comments: true } } },
+    });
+    if (blog) {
+      const { _count, ...rest } = blog;
+      return { ...rest, commentsCount: _count.comments };
+    }
     return blog;
   } catch (error) {
     console.error('Database Error:', error);

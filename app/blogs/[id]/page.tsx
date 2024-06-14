@@ -1,23 +1,13 @@
 import { fetchBlogById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
+import Link from 'next/link';
 import BlogDetails from '@/app/components/blogs/blog-details';
 import BlogLikes from '@/app/components/blogs/blog-likes';
-import BlogComments from '@/app/components/comments/blog-comments';
-import type { Metadata } from 'next';
+import { FaComments } from 'react-icons/fa6';
 
 interface Props {
   params: { id: string };
-}
-
-export async function generateMetadata({ params: { id } }: Props): Promise<Metadata> {
-  const blog = await fetchBlogById(id);
-
-  if (!blog) notFound();
-
-  return {
-    title: blog.title,
-  };
 }
 
 export default async function Page({ params: { id } }: Props) {
@@ -31,7 +21,10 @@ export default async function Page({ params: { id } }: Props) {
       <Suspense fallback={<h2>LOADING BLOG LIKES...</h2>}>
         <BlogLikes blogId={blog.id} />
       </Suspense>
-      <BlogComments blogId={blog.id} />
+      <Link href={`/blogs/${id}/comments`}>
+        <FaComments />
+        {blog.commentsCount}
+      </Link>
     </main>
   );
 }
