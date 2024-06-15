@@ -2,6 +2,7 @@ import { fetchBlogById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import Link from 'next/link';
+import BlogAuthor from '@/app/components/blogs/blog-author';
 import BlogDetails from '@/app/components/blogs/blog-details';
 import BlogLikes from '@/app/components/blogs/blog-likes';
 import { FaComments } from 'react-icons/fa6';
@@ -17,6 +18,7 @@ export default async function Page({ params: { id } }: Props) {
 
   return (
     <main>
+      <BlogAuthor author={blog.user} />
       <BlogDetails {...blog} />
       <Suspense fallback={<h2>LOADING BLOG LIKES...</h2>}>
         <BlogLikes blogId={blog.id} />

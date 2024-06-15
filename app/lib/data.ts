@@ -13,6 +13,23 @@ export async function fetchUser(email: string) {
   }
 }
 
+export async function fetchUserById(id: string) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id },
+      include: { profile: true, _count: { select: { blogs: true } } },
+    });
+    if (user) {
+      const { _count, ...rest } = user;
+      return { ...rest, blogsCount: _count.blogs };
+    }
+    return user;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw Error('Failed to fetch user');
+  }
+}
+
 export async function fetchProfile(userId: string) {
   try {
     const profile = await prisma.profile.findUnique({ where: { userId } });
@@ -146,7 +163,10 @@ export async function fetchBlogById(id: string) {
   try {
     const blog = await prisma.blog.findUnique({
       where: { id },
-      include: { _count: { select: { comments: true } } },
+      include: {
+        user: { select: { id: true, name: true, image: true } },
+        _count: { select: { comments: true } },
+      },
     });
     if (blog) {
       const { _count, ...rest } = blog;
