@@ -21,3 +21,12 @@ export const usersOnBlogsOrderOptions: {
   { id: 1, label: 'Liked at (desc)', value: { likedAt: 'desc' } },
   { id: 2, label: 'Liked at (asc)', value: { likedAt: 'asc' } },
 ];
+
+export const commentsOrderOptions: {
+  id: number;
+  label: string;
+  value: Prisma.CommentOrderByWithRelationInput;
+}[] = [
+  { id: 1, label: 'Creation date (desc)', value: { createdAt: 'desc' } },
+  { id: 2, label: 'Creation date (asc)', value: { createdAt: 'asc' } },
+];

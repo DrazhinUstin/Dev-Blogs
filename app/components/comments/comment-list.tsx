@@ -1,8 +1,17 @@
 import { fetchBlogComments } from '@/app/lib/data';
 import CommentCard from './comment-card';
+import type { Prisma } from '@prisma/client';
 
-export default async function CommentList({ blogId }: { blogId: string }) {
-  const comments = await fetchBlogComments(blogId, 1);
+export default async function CommentList({
+  blogId,
+  orderBy,
+  page,
+}: {
+  blogId: string;
+  orderBy: Prisma.CommentOrderByWithRelationInput;
+  page: number;
+}) {
+  const comments = await fetchBlogComments(blogId, orderBy, page);
   return (
     <div>
       {comments.map((comment) => (

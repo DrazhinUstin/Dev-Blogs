@@ -207,11 +207,15 @@ export async function fetchUserLikedBlogsTotalPages(userId: string) {
 
 const commentsPerPage = 20;
 
-export async function fetchBlogComments(blogId: string, page: number) {
+export async function fetchBlogComments(
+  blogId: string,
+  orderBy: Prisma.CommentOrderByWithRelationInput,
+  page: number
+) {
   try {
     const comments = await prisma.comment.findMany({
       where: { blogId },
-      orderBy: { createdAt: 'desc' },
+      orderBy,
       skip: (page - 1) * commentsPerPage,
       take: commentsPerPage,
       include: {
@@ -223,5 +227,15 @@ export async function fetchBlogComments(blogId: string, page: number) {
   } catch (error) {
     console.error('Database Error:', error);
     throw Error('Failed to fetch blog comments');
+  }
+}
+
+export async function fetchBlogCommentsTotalPages(blogId: string) {
+  try {
+    const count = await prisma.comment.count({ where: { blogId } });
+    return { count, totalPages: Math.ceil(count / commentsPerPage) };
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw Error('Failed to fetch blog comments total pages');
   }
 }
