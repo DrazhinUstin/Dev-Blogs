@@ -30,3 +30,14 @@ export const commentsOrderOptions: {
   { id: 1, label: 'Creation date (desc)', value: { createdAt: 'desc' } },
   { id: 2, label: 'Creation date (asc)', value: { createdAt: 'asc' } },
 ];
+
+export const usersOrderOptions: {
+  id: number;
+  label: string;
+  value: Prisma.UserOrderByWithRelationInput;
+}[] = [
+  { id: 1, label: 'Blogs count (desc)', value: { blogs: { _count: 'desc' } } },
+  { id: 2, label: 'Blogs count (asc)', value: { blogs: { _count: 'asc' } } },
+  { id: 3, label: 'Name (desc)', value: { name: 'desc' } },
+  { id: 4, label: 'Name (asc)', value: { name: 'asc' } },
+];

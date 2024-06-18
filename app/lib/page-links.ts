@@ -13,6 +13,12 @@ export const pageLinks = [
   },
   {
     id: 3,
+    href: '/users',
+    label: 'authors',
+    isProtected: false,
+  },
+  {
+    id: 4,
     href: '/dashboard',
     label: 'dashboard',
     isProtected: true,

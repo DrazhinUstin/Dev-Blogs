@@ -42,3 +42,13 @@ export type ProfileFormState = {
     bio?: string[];
   };
 };
+
+export type UserFilters = {
+  query?: string;
+  withBio?: 'true';
+};
+
+export type UsersPageSearchParams = UserFilters & {
+  orderBy?: string;
+  page?: string;
+};

@@ -1,7 +1,7 @@
 import { prisma } from '@/client';
 import { cache } from 'react';
 import type { Prisma } from '@prisma/client';
-import type { BlogFilters } from '@/app/lib/types';
+import type { BlogFilters, UserFilters } from '@/app/lib/types';
 
 export async function fetchUser(email: string) {
   try {
@@ -257,5 +257,99 @@ export async function fetchBlogCommentsTotalPages(blogId: string) {
   } catch (error) {
     console.error('Database Error:', error);
     throw Error('Failed to fetch blog comments total pages');
+  }
+}
+
+const authorsPerPage = 6;
+
+export async function fetchAuthors(
+  filters: UserFilters,
+  orderBy: Prisma.UserOrderByWithRelationInput,
+  page: number
+) {
+  try {
+    const { query, withBio } = filters;
+    const queryWhereInput: Prisma.UserWhereInput = {
+      OR: [
+        {
+          name: {
+            contains: query,
+            mode: 'insensitive',
+          },
+        },
+        {
+          email: {
+            contains: query,
+            mode: 'insensitive',
+          },
+        },
+      ],
+    };
+    const withBioWhereInput: Prisma.UserWhereInput = {
+      profile: { AND: [{ bio: { not: null } }, { bio: { not: '' } }] },
+    };
+    const where: Prisma.UserWhereInput = {
+      AND: [
+        query ? queryWhereInput : {},
+        withBio ? withBioWhereInput : {},
+        { blogs: { some: {} } },
+      ],
+    };
+    const authors = (
+      await prisma.user.findMany({
+        where,
+        orderBy,
+        skip: (page - 1) * authorsPerPage,
+        take: authorsPerPage,
+        select: {
+          id: true,
+          name: true,
+          image: true,
+          profile: true,
+          _count: { select: { blogs: true } },
+        },
+      })
+    ).map(({ _count, ...rest }) => ({ ...rest, blogsCount: _count.blogs }));
+    return authors;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw Error('Failed to fetch authors');
+  }
+}
+
+export async function fetchAuthorsTotalPages(filters: UserFilters) {
+  try {
+    const { query, withBio } = filters;
+    const queryWhereInput: Prisma.UserWhereInput = {
+      OR: [
+        {
+          name: {
+            contains: query,
+            mode: 'insensitive',
+          },
+        },
+        {
+          email: {
+            contains: query,
+            mode: 'insensitive',
+          },
+        },
+      ],
+    };
+    const withBioWhereInput: Prisma.UserWhereInput = {
+      profile: { AND: [{ bio: { not: null } }, { bio: { not: '' } }] },
+    };
+    const where: Prisma.UserWhereInput = {
+      AND: [
+        query ? queryWhereInput : {},
+        withBio ? withBioWhereInput : {},
+        { blogs: { some: {} } },
+      ],
+    };
+    const count = await prisma.user.count({ where });
+    return Math.ceil(count / authorsPerPage);
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw Error('Failed to fetch authors total pages');
   }
 }
