@@ -353,3 +353,32 @@ export async function fetchAuthorsTotalPages(filters: UserFilters) {
     throw Error('Failed to fetch authors total pages');
   }
 }
+
+export async function fetchUserOverview(userId: string) {
+  try {
+    const data = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        blogs: { select: { _count: { select: { likes: true, comments: true } } } },
+        _count: { select: { blogs: true } },
+      },
+    });
+    if (!data) throw Error('User does not exist');
+    const {
+      _count: { blogs: blogsCount },
+      blogs,
+    } = data;
+    const { likesCount, commentsCount } = blogs.reduce(
+      (acc, { _count: { likes, comments } }) => {
+        acc.likesCount += likes;
+        acc.commentsCount += comments;
+        return acc;
+      },
+      { likesCount: 0, commentsCount: 0 }
+    );
+    return { blogsCount, likesCount, commentsCount };
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw Error('Failed to fetch user overview');
+  }
+}
