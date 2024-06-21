@@ -50,6 +50,21 @@ export async function fetchCategories() {
   }
 }
 
+export async function fetchCategoriesWithBlogsCount() {
+  try {
+    const categories = (
+      await prisma.category.findMany({
+        include: { _count: { select: { blogs: true } } },
+        orderBy: { name: 'asc' },
+      })
+    ).map(({ _count: { blogs: blogsCount }, ...rest }) => ({ ...rest, blogsCount }));
+    return categories;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw Error('Failed to fetch categories with blogs count');
+  }
+}
+
 const blogsPerPage = 6;
 
 export async function fetchBlogs(
