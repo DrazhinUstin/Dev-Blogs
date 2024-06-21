@@ -382,3 +382,44 @@ export async function fetchUserOverview(userId: string) {
     throw Error('Failed to fetch user overview');
   }
 }
+
+export async function fetchUserBlogsChartData(userId: string) {
+  try {
+    const blogs = await prisma.blog.findMany({
+      where: { userId },
+      orderBy: { likes: { _count: 'desc' } },
+      select: { title: true, _count: { select: { likes: true } } },
+    });
+    const data = blogs.reduce((acc, { title, _count: { likes } }, index) => {
+      if (!likes) return acc;
+      if (index >= 5) acc['Others'] = (acc['Others'] || 0) + likes;
+      else acc[title] = likes;
+      return acc;
+    }, {} as { [key: string]: number });
+    return { labels: Object.keys(data), data: Object.values(data) };
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw Error('Failed to fetch likes by blogs chart data');
+  }
+}
+
+export async function fetchUserCategoriesChartData(userId: string) {
+  try {
+    const data = (
+      await prisma.category.findMany({
+        where: { blogs: { some: { userId } } },
+        select: { name: true, _count: { select: { blogs: { where: { userId } } } } },
+      })
+    )
+      .sort((a, b) => b._count.blogs - a._count.blogs)
+      .reduce((acc, { name, _count: { blogs } }, index) => {
+        if (index >= 5) acc['Others'] = (acc['Others'] || 0) + blogs;
+        else acc[name] = blogs;
+        return acc;
+      }, {} as { [key: string]: number });
+    return { labels: Object.keys(data), data: Object.values(data) };
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw Error('Failed to fetch blogs categories chart data');
+  }
+}
