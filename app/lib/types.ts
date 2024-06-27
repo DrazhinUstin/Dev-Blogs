@@ -29,6 +29,16 @@ export type BlogsPageSearchParams = Omit<BlogFilters, 'userId'> & {
   page?: string;
 };
 
+export type CommentsFilters =
+  | {
+      blogId: string;
+      userId?: never;
+    }
+  | {
+      userId: string;
+      blogId?: never;
+    };
+
 export type ProfileFormState = {
   errorMsg?: string;
   fieldErrors?: {

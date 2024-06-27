@@ -1,7 +1,7 @@
 import { prisma } from '@/client';
 import { cache } from 'react';
 import type { Prisma } from '@prisma/client';
-import type { BlogFilters, UserFilters } from '@/app/lib/types';
+import type { BlogFilters, CommentsFilters, UserFilters } from '@/app/lib/types';
 
 export async function fetchUser(email: string) {
   try {
@@ -243,19 +243,21 @@ export async function fetchUserLikedBlogsTotalPages(userId: string) {
 const commentsPerPage = 20;
 
 export async function fetchBlogComments(
-  blogId: string,
+  filters: CommentsFilters,
   orderBy: Prisma.CommentOrderByWithRelationInput,
   page: number
 ) {
+  const { blogId, userId } = filters;
   try {
     const comments = await prisma.comment.findMany({
-      where: { blogId },
+      where: { blogId, userId },
       orderBy,
       skip: (page - 1) * commentsPerPage,
       take: commentsPerPage,
       include: {
         replyOn: { select: { id: true, text: true } },
         user: { select: { name: true, image: true } },
+        blog: { select: { title: true } },
       },
     });
     return comments;
@@ -265,9 +267,10 @@ export async function fetchBlogComments(
   }
 }
 
-export async function fetchBlogCommentsTotalPages(blogId: string) {
+export async function fetchBlogCommentsTotalPages(filters: CommentsFilters) {
+  const { blogId, userId } = filters;
   try {
-    const count = await prisma.comment.count({ where: { blogId } });
+    const count = await prisma.comment.count({ where: { blogId, userId } });
     return { count, totalPages: Math.ceil(count / commentsPerPage) };
   } catch (error) {
     console.error('Database Error:', error);

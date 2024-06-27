@@ -16,18 +16,18 @@ interface Props {
   searchParams: { orderBy?: string; page?: string };
 }
 
-export default async function Page({ params: { id }, searchParams }: Props) {
+export default async function Page({ params: { id: blogId }, searchParams }: Props) {
   const { orderBy, page } = searchParams;
   const parsedOrderBy = orderBy ? JSON.parse(orderBy) : commentsOrderOptions[0].value;
   const currentPage = Number(page) || 1;
-  const { count, totalPages } = await fetchBlogCommentsTotalPages(id);
+  const { count, totalPages } = await fetchBlogCommentsTotalPages({ blogId });
   return (
     <main>
       <h2>Comments ({count}):</h2>
-      <AddCommentForm blogId={id} />
+      <AddCommentForm blogId={blogId} />
       <Order options={commentsOrderOptions} />
       <Suspense key={JSON.stringify(searchParams)} fallback={<h2>LOADING COMMENTS...</h2>}>
-        <CommentList blogId={id} orderBy={parsedOrderBy} page={currentPage} />
+        <CommentList filters={{ blogId }} orderBy={parsedOrderBy} page={currentPage} />
       </Suspense>
       <Pagination currentPage={currentPage} totalPages={totalPages} />
     </main>
