@@ -193,7 +193,6 @@ export async function deleteComment(id: string) {
 }
 
 export async function upsertProfile(
-  existingAvatarUrl: Profile['avatarUrl'],
   prevState: ProfileFormState,
   formData: FormData
 ): Promise<ProfileFormState> {
@@ -208,30 +207,15 @@ export async function upsertProfile(
   if (!user?.id) {
     throw Error('Not authorized access: Failed to upsert a profile');
   }
-  const { avatar, ...rest } = validatedFields.data;
-  let avatarUrl: Profile['avatarUrl'] = null;
+  const { gender, ...rest } = validatedFields.data;
+  const data = { ...rest, gender: gender || null };
   try {
-    if (avatar) {
-      if (existingAvatarUrl) {
-        await del(existingAvatarUrl);
-      }
-      const blob = await put(`avatars/${avatar.name}`, avatar, { access: 'public' });
-      avatarUrl = blob.url;
-    }
     await prisma.profile.upsert({
       where: { userId: user.id },
-      update: { ...rest, ...(avatarUrl && { avatarUrl }) },
-      create: { userId: user.id, avatarUrl, ...rest },
+      update: data,
+      create: { userId: user.id, ...data },
     });
   } catch (error) {
-    if (error instanceof BlobAccessError) {
-      return {
-        errorMsg: 'Storage error: Failed to upload an image',
-      };
-    }
-    if (error instanceof BlobStoreSuspendedError) {
-      return { errorMsg: 'Storage error: The store has been suspended' };
-    }
     return {
       errorMsg: 'Database error: Failed to upsert a profile ',
     };

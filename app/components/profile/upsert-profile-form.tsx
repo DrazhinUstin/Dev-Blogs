@@ -6,17 +6,21 @@ import FormSubmitBtn from '@/app/components/form-submit-btn';
 import type { Profile } from '@prisma/client';
 
 export default function UpsertProfileForm({ profile }: { profile: Profile | null }) {
-  const upsertProfileWithId = upsertProfile.bind(null, profile?.avatarUrl || null);
-  const [state, dispatch] = useFormState(upsertProfileWithId, {});
+  const [state, dispatch] = useFormState(upsertProfile, {});
   return (
     <form action={dispatch}>
       <div>
-        <label htmlFor='fullName'>Full name:</label>
-        <input type='text' name='fullName' id='fullName' defaultValue={profile?.fullName} />
-        {state.fieldErrors?.fullName && <p>{state.fieldErrors.fullName}</p>}
-      </div>
-      <div>
         <p>Gender:</p>
+        <div>
+          <label htmlFor='unknown'>Prefer not to say</label>
+          <input
+            type='radio'
+            name='gender'
+            id='unknown'
+            value=''
+            defaultChecked={!profile?.gender}
+          />
+        </div>
         <div>
           <label htmlFor='male'>Male</label>
           <input
@@ -38,11 +42,6 @@ export default function UpsertProfileForm({ profile }: { profile: Profile | null
           />
         </div>
         {state.fieldErrors?.gender && <p>{state.fieldErrors.gender}</p>}
-      </div>
-      <div>
-        <label htmlFor='email'>Email:</label>
-        <input type='email' name='email' id='email' defaultValue={profile?.email || undefined} />
-        {state.fieldErrors?.email && <p>{state.fieldErrors.email}</p>}
       </div>
       <div>
         <label htmlFor='websiteUrl'>Website url:</label>
@@ -73,11 +72,6 @@ export default function UpsertProfileForm({ profile }: { profile: Profile | null
           defaultValue={profile?.linkedinUrl || undefined}
         />
         {state.fieldErrors?.linkedinUrl && <p>{state.fieldErrors.linkedinUrl}</p>}
-      </div>
-      <div>
-        <label htmlFor='avatar'>Avatar:</label>
-        <input type='file' name='avatar' id='avatar' accept='image/*' />
-        {state.fieldErrors?.avatar && <p>{state.fieldErrors.avatar}</p>}
       </div>
       <div>
         <label htmlFor='bio'>Bio:</label>

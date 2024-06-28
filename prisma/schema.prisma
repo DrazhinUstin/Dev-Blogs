@@ -54,10 +54,7 @@ model Account {
 model Profile {
   id          String   @id @default(cuid())
   userId      String   @unique
-  fullName    String
   gender      Gender?
-  email       String?
-  avatarUrl   String?
   websiteUrl  String?
   githubUrl   String?
   linkedinUrl String?

@@ -12,8 +12,6 @@ export const requiredString = z
 
 const optionalString = z.string().max(maxStrLength).optional();
 
-const optionalEmail = z.string().email().max(maxStrLength).optional().or(z.literal(''));
-
 const optionalUrl = z.string().url().max(maxStrLength).optional().or(z.literal(''));
 
 const ImageSchema = z
@@ -35,10 +33,7 @@ export const BlogFormSchema = z.object({
 });
 
 export const ProfileFormSchema = z.object({
-  fullName: requiredString,
-  gender: z.nativeEnum(Gender).optional(),
-  avatar: ImageSchema,
-  email: optionalEmail,
+  gender: z.nativeEnum(Gender).optional().or(z.literal('')),
   websiteUrl: optionalUrl,
   githubUrl: optionalUrl,
   linkedinUrl: optionalUrl,
