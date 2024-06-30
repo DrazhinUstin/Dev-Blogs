@@ -3,24 +3,23 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Activity',
-    default: 'Activity',
+    template: '%s | Profile',
+    default: 'Profile',
   },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      <h2>Activity</h2>
-      <nav>
+      <aside>
         <NavLinks
           links={[
-            { id: 1, href: '/profile/activity/likes', label: 'likes' },
-            { id: 2, href: '/profile/activity/comments', label: 'comments' },
+            { id: 1, href: '/profile', label: 'profile' },
+            { id: 2, href: '/profile/activity/likes', label: 'activity' },
           ]}
         />
-      </nav>
-      <div>{children}</div>
+      </aside>
+      {children}
     </div>
   );
 }

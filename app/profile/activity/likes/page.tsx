@@ -6,6 +6,11 @@ import { usersOnBlogsOrderOptions } from '@/app/lib/order-options';
 import Pagination from '@/app/components/pagination';
 import BlogCard from '@/app/components/blogs/blog-card';
 import type { Prisma } from '@prisma/client';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Likes',
+};
 
 interface Props {
   searchParams: { orderBy?: string; page?: string };

@@ -5,6 +5,11 @@ import Order from '@/app/components/order';
 import { Suspense } from 'react';
 import CommentList from '@/app/components/comments/comment-list';
 import Pagination from '@/app/components/pagination';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Comments',
+};
 
 interface Props {
   searchParams: { orderBy?: string; page?: string };
