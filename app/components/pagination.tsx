@@ -4,6 +4,8 @@ import { useSearchParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { generatePagination } from '@/app/lib/utils';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
+import clsx from 'clsx';
+import styles from './pagination.module.scss';
 
 export default function Pagination({
   currentPage,
@@ -25,7 +27,7 @@ export default function Pagination({
   if (totalPages <= 1) return null;
 
   return (
-    <div>
+    <div className={styles.container}>
       <NavigationArrow
         direction='left'
         href={createPageHref(currentPage - 1)}
@@ -60,7 +62,13 @@ function PageNumber({
   isActive: boolean;
   disabled: boolean;
 }) {
-  return isActive || disabled ? <span>{page}</span> : <Link href={href}>{page}</Link>;
+  return isActive || disabled ? (
+    <span className={clsx(isActive && styles.number_active)}>{page}</span>
+  ) : (
+    <Link href={href} className={styles.number}>
+      {page}
+    </Link>
+  );
 }
 
 function NavigationArrow({
@@ -73,5 +81,11 @@ function NavigationArrow({
   disabled: boolean;
 }) {
   const icon = direction === 'left' ? <FaChevronLeft /> : <FaChevronRight />;
-  return disabled ? <span>{icon}</span> : <Link href={href}>{icon}</Link>;
+  return disabled ? (
+    <span className={styles.arrow_disabled}>{icon}</span>
+  ) : (
+    <Link href={href} className={styles.arrow}>
+      {icon}
+    </Link>
+  );
 }

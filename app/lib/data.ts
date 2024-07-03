@@ -65,7 +65,7 @@ export async function fetchCategoriesWithBlogsCount() {
   }
 }
 
-const blogsPerPage = 6;
+const blogsPerPage = 1;
 
 export async function fetchBlogs(
   filters: BlogFilters,
@@ -73,7 +73,7 @@ export async function fetchBlogs(
   page: number
 ) {
   try {
-    const { query, categoryName, withLikes, userId } = filters;
+    const { query, categoryName, withDescription, userId } = filters;
     const queryWhereInput: Prisma.BlogWhereInput = {
       OR: [
         {
@@ -88,6 +88,14 @@ export async function fetchBlogs(
             mode: 'insensitive',
           },
         },
+        {
+          user: {
+            name: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+        },
       ],
     };
     const categoryWhereInput: Prisma.BlogWhereInput = {
@@ -95,14 +103,14 @@ export async function fetchBlogs(
         equals: categoryName,
       },
     };
-    const withLikesWhereInput: Prisma.BlogWhereInput = {
-      likes: { some: {} },
+    const withDescriptionWhereInput: Prisma.BlogWhereInput = {
+      AND: [{ description: { not: null } }, { description: { not: '' } }],
     };
     const where: Prisma.BlogWhereInput = {
       AND: [
         query ? queryWhereInput : {},
         categoryName ? categoryWhereInput : {},
-        withLikes ? withLikesWhereInput : {},
+        withDescription ? withDescriptionWhereInput : {},
         userId ? { userId } : {},
       ],
     };
@@ -119,10 +127,21 @@ export async function fetchBlogs(
         title: true,
         description: true,
         imageUrl: true,
-        _count: { select: { likes: true } },
+        createdAt: true,
+        user: {
+          select: {
+            name: true,
+            image: true,
+          },
+        },
+        _count: { select: { likes: true, comments: true } },
       },
     });
-    return blogs.map(({ _count, ...blog }) => ({ ...blog, likesCount: _count.likes }));
+    return blogs.map(({ _count, ...blog }) => ({
+      ...blog,
+      likesCount: _count.likes,
+      commentsCount: _count.comments,
+    }));
   } catch (error) {
     console.error('Database Error:', error);
     throw Error('Failed to fetch blogs');
@@ -131,7 +150,7 @@ export async function fetchBlogs(
 
 export async function fetchBlogsTotalPages(filters: BlogFilters) {
   try {
-    const { query, categoryName, withLikes, userId } = filters;
+    const { query, categoryName, withDescription, userId } = filters;
     const queryWhereInput: Prisma.BlogWhereInput = {
       OR: [
         {
@@ -146,6 +165,14 @@ export async function fetchBlogsTotalPages(filters: BlogFilters) {
             mode: 'insensitive',
           },
         },
+        {
+          user: {
+            name: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+        },
       ],
     };
     const categoryWhereInput: Prisma.BlogWhereInput = {
@@ -153,14 +180,14 @@ export async function fetchBlogsTotalPages(filters: BlogFilters) {
         equals: categoryName,
       },
     };
-    const withLikesWhereInput: Prisma.BlogWhereInput = {
-      likes: { some: {} },
+    const withDescriptionWhereInput: Prisma.BlogWhereInput = {
+      AND: [{ description: { not: null } }, { description: { not: '' } }],
     };
     const where: Prisma.BlogWhereInput = {
       AND: [
         query ? queryWhereInput : {},
         categoryName ? categoryWhereInput : {},
-        withLikes ? withLikesWhereInput : {},
+        withDescription ? withDescriptionWhereInput : {},
         userId ? { userId } : {},
       ],
     };

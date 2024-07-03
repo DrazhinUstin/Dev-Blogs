@@ -13,7 +13,7 @@ export default function DeleteBlogForm({
   const deleteBlogWithId = deleteBlog.bind(null, id, imageUrl);
   return (
     <form action={deleteBlogWithId}>
-      <FormSubmitBtn>
+      <FormSubmitBtn className='btn-flex'>
         <FaTrash />
         delete
       </FormSubmitBtn>

@@ -1,0 +1,11 @@
+@use '@/app/scss/mixins';
+
+.container {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 2rem;
+
+  @include mixins.breakpoint-down('lg') {
+    grid-template-columns: unset;
+  }
+}

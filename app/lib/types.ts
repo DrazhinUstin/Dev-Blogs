@@ -20,7 +20,7 @@ export type BlogFormState = {
 export type BlogFilters = {
   query?: string;
   categoryName?: string;
-  withLikes?: 'true';
+  withDescription?: 'true';
   userId?: Blog['userId'];
 };
 

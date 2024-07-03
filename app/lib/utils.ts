@@ -1,3 +1,9 @@
+import { formatDistanceToNow } from 'date-fns';
+
+export function formatDateToNow(date: Date | string | number) {
+  return formatDistanceToNow(date, { addSuffix: true, includeSeconds: true });
+}
+
 export function generatePagination(currentPage: number, totalPages: number): Array<number | '...'> {
   if (totalPages <= 7) {
     return Array.from({ length: totalPages }, (_, index) => index + 1);

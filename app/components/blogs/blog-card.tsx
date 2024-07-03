@@ -1,9 +1,13 @@
 import { auth } from '@/auth';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FaCalendarDays, FaThumbsUp, FaComments, FaPen, FaEye } from 'react-icons/fa6';
 import { fetchBlogs } from '@/app/lib/data';
+import { formatDateToNow } from '@/app/lib/utils';
+import Avatar from '@/app/components/avatar';
 import DeleteBlogForm from '@/app/components/blogs/delete-blog-form';
 import type { Prisma } from '@prisma/client';
+import styles from './blog-card.module.scss';
 
 export default async function BlogCard({
   id,
@@ -12,23 +16,56 @@ export default async function BlogCard({
   categoryName,
   description,
   imageUrl,
+  createdAt,
+  user,
   likesCount,
+  commentsCount,
 }: Prisma.PromiseReturnType<typeof fetchBlogs>[0]) {
-  const user = (await auth())?.user;
+  const currentUser = (await auth())?.user;
   return (
-    <article>
-      {imageUrl && <Image src={imageUrl} alt='blog-image' width={100} height={100} />}
-      <h4>{title}</h4>
-      <p>{categoryName}</p>
-      <p>{description}</p>
-      <p>{likesCount} likes</p>
-      {userId === user?.id && (
+    <article className={styles.card}>
+      <div className={styles.author}>
+        <Link href={`/users/${userId}`}>
+          <Avatar src={user.image} width={24} height={24} />
+          <p>{user.name}</p>
+        </Link>
+      </div>
+      <div className={styles.card_content}>
         <div>
-          <Link href={`/dashboard/blogs/${id}/edit`}>edit</Link>
-          <DeleteBlogForm id={id} imageUrl={imageUrl} />
+          <h3>{title}</h3>
+          <p className={styles.category}>{categoryName}</p>
+          <p>{description}</p>
         </div>
-      )}
-      <Link href={`/blogs/${id}`}>Browse</Link>
+        {imageUrl && <Image src={imageUrl} alt='blog-image' width={150} height={100} />}
+      </div>
+      <div className={styles.card_stats}>
+        <span>
+          <FaCalendarDays />
+          {formatDateToNow(createdAt)}
+        </span>
+        <span>
+          <FaThumbsUp />
+          {likesCount}
+        </span>
+        <span>
+          <FaComments />
+          {commentsCount}
+        </span>
+      </div>
+      <div className={styles.card_controls}>
+        {userId === currentUser?.id && (
+          <>
+            <Link href={`/dashboard/blogs/${id}/edit`} className='btn-flex'>
+              <FaPen />
+              edit
+            </Link>
+            <DeleteBlogForm id={id} imageUrl={imageUrl} />
+          </>
+        )}
+        <Link href={`/blogs/${id}`} className='btn-flex'>
+          <FaEye /> Browse
+        </Link>
+      </div>
     </article>
   );
 }

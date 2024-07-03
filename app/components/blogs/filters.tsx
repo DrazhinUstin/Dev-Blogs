@@ -14,28 +14,30 @@ export default function Filters({ categories }: { categories: Category[] }) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const values = Object.fromEntries(formData.entries()) as Record<string, string>;
-    const { withLikes } = values;
+    const { withDescription } = values;
     const params = new URLSearchParams(searchParams);
-    Object.entries({ ...values, ...(!withLikes && { withLikes }) }).map(([key, value]) => {
-      if (value) {
-        params.set(key, value);
-      } else {
-        params.delete(key);
+    Object.entries({ ...values, ...(!withDescription && { withDescription }) }).map(
+      ([key, value]) => {
+        if (value) {
+          params.set(key, value);
+        } else {
+          params.delete(key);
+        }
       }
-    });
+    );
     params.set('page', '1');
     router.replace(`${pathname}?${params.toString()}`);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='form'>
       <div>
         <label htmlFor='query'>Search:</label>
         <input
           type='text'
           name='query'
           id='query'
-          placeholder='Search by title, category'
+          placeholder='Search by title, category, author name'
           defaultValue={searchParams.get('query') || undefined}
         />
       </div>
@@ -54,17 +56,17 @@ export default function Filters({ categories }: { categories: Category[] }) {
           ))}
         </select>
       </div>
-      <div>
-        <label htmlFor='withLikes'>Only with likes:</label>
+      <div className='flex'>
         <input
           type='checkbox'
-          name='withLikes'
-          id='withLikes'
-          value={'true' satisfies BlogFilters['withLikes']}
-          defaultChecked={Boolean(searchParams.get('withLikes'))}
+          name='withDescription'
+          id='withDescription'
+          value={'true' satisfies BlogFilters['withDescription']}
+          defaultChecked={Boolean(searchParams.get('withDescription'))}
         />
+        <label htmlFor='withDescription'>Only with description:</label>
       </div>
-      <FormSubmitBtn>apply</FormSubmitBtn>
+      <FormSubmitBtn className='btn w-100'>apply</FormSubmitBtn>
     </form>
   );
 }

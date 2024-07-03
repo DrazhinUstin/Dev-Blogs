@@ -2,6 +2,7 @@
 
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import type { Prisma } from '@prisma/client';
+import styles from './order.module.scss';
 
 export default function Order({
   options,
@@ -20,7 +21,7 @@ export default function Order({
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <label htmlFor='orderBy'>Order By:</label>
       <select
         name='orderBy'
