@@ -144,6 +144,23 @@ svg {
   width: 100%;
 }
 
+.grid-center {
+  display: grid;
+  place-items: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-sm {
+  font-size: var(--small-text);
+}
+
 .main {
   max-width: var(--max-width);
   width: var(--fluid-width);
@@ -237,6 +254,64 @@ svg {
 
 .avatar {
   border-radius: 50%;
+}
+
+@for $i from 1 through 8 {
+  $size: #{$i / 2}rem;
+
+  @if $i ==1 {
+    .mb {
+      margin-bottom: $size;
+    }
+
+    .mt {
+      margin-top: $size;
+    }
+
+    .pb {
+      padding-bottom: $size;
+    }
+
+    .pt {
+      padding-top: $size;
+    }
+  }
+
+  @else {
+    .mb-#{$i} {
+      margin-bottom: $size;
+    }
+
+    .mt-#{$i} {
+      margin-top: $size;
+    }
+
+    .pb-#{$i} {
+      padding-bottom: $size;
+    }
+
+    .pt-#{$i} {
+      padding-top: $size;
+    }
+  }
+}
+
+$colors: (
+  "primary": var(--color-primary),
+  "black": var(--color-black),
+  "white": var(--color-white),
+  "red": var(--color-red),
+  "gray": var(--color-gray),
+);
+
+@each $name, $value in $colors {
+  .clr-#{$name} {
+    color: $value;
+  }
+
+  .bg-clr-#{$name} {
+    background-color: $value;
+  }
 }
 
 @keyframes appearance {

@@ -44,18 +44,18 @@ export default async function BlogLikes({ blogId }: { blogId: Blog['id'] }) {
 
   if (user?.id === blogCreatorId) {
     return (
-      <div>
-        {likesCount}
+      <span className='btn-flex'>
         <FaRegThumbsUp />
-      </div>
+        {likesCount}
+      </span>
     );
   }
 
   return (
     <form action={toggleLike}>
-      <FormSubmitBtn>
-        {likesCount}
+      <FormSubmitBtn className='btn-flex'>
         {isBlogLikedByUser ? <FaThumbsUp /> : <FaRegThumbsUp />}
+        {likesCount}
       </FormSubmitBtn>
     </form>
   );

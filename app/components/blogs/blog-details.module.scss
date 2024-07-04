@@ -1,0 +1,23 @@
+.author {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 0.375rem;
+  margin-bottom: 2rem;
+  font-size: var(--small-text);
+}
+
+.image {
+  margin: 0 auto 2rem;
+  border-radius: var(--border-radius);
+}
+
+.summary {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-gray-light);
+}

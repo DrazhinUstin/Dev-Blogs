@@ -65,7 +65,7 @@ export async function fetchCategoriesWithBlogsCount() {
   }
 }
 
-const blogsPerPage = 1;
+const blogsPerPage = 6;
 
 export async function fetchBlogs(
   filters: BlogFilters,
@@ -206,7 +206,7 @@ export async function fetchBlogById(id: string) {
     const blog = await prisma.blog.findUnique({
       where: { id },
       include: {
-        user: { select: { id: true, name: true, image: true } },
+        user: { select: { name: true, image: true } },
         _count: { select: { comments: true } },
       },
     });
