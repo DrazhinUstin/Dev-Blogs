@@ -16,7 +16,7 @@ export default function CommentCardEdit({
   const [isEditFormOpen, setIsEditFormOpen] = useState<boolean>(false);
   return (
     <>
-      <button onClick={() => setIsEditFormOpen(!isEditFormOpen)}>
+      <button onClick={() => setIsEditFormOpen(!isEditFormOpen)} className='btn-flex text-sm'>
         <FaPen />
         edit
       </button>
@@ -48,10 +48,19 @@ function EditForm({
         dispatch(formData);
         closeForm();
       }}
+      className='form w-100 mt-2'
     >
-      <textarea name='text' id='text' defaultValue={defaultValue} cols={30} rows={10} />
+      <textarea
+        name='text'
+        defaultValue={defaultValue}
+        placeholder='Start editing your comment...'
+        rows={3}
+        autoFocus
+      />
       {error && <p>{error}</p>}
-      <FormSubmitBtn>submit</FormSubmitBtn>
+      <div className='text-end'>
+        <FormSubmitBtn className='btn text-sm'>submit</FormSubmitBtn>
+      </div>
     </form>
   );
 }

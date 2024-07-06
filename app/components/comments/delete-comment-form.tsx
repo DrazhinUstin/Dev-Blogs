@@ -6,7 +6,7 @@ export default function DeleteCommentForm({ commentId }: { commentId: string }) 
   const deleteCommentWithId = deleteComment.bind(null, commentId);
   return (
     <form action={deleteCommentWithId}>
-      <FormSubmitBtn>
+      <FormSubmitBtn className='btn-flex text-sm bg-clr-red'>
         <FaTrash />
         delete
       </FormSubmitBtn>

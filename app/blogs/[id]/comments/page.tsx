@@ -22,9 +22,10 @@ export default async function Page({ params: { id: blogId }, searchParams }: Pro
   const currentPage = Number(page) || 1;
   const { count, totalPages } = await fetchBlogCommentsTotalPages({ blogId });
   return (
-    <main>
-      <h2>Comments ({count}):</h2>
+    <main className='main'>
+      <h2 className='mb-4'>Comments ({count}):</h2>
       <AddCommentForm blogId={blogId} />
+      <div className='mb-4'></div>
       <Order options={commentsOrderOptions} />
       <Suspense key={JSON.stringify(searchParams)} fallback={<h2>LOADING COMMENTS...</h2>}>
         <CommentList filters={{ blogId }} orderBy={parsedOrderBy} page={currentPage} />

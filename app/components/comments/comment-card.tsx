@@ -4,8 +4,11 @@ import Avatar from '@/app/components/avatar';
 import CommentCardReply from './comment-card-reply';
 import type { Prisma } from '@prisma/client';
 import { fetchBlogComments } from '@/app/lib/data';
+import { formatDateToNow } from '@/app/lib/utils';
 import DeleteCommentForm from './delete-comment-form';
 import CommentCardEdit from './comment-card-edit';
+import { FaReply } from 'react-icons/fa6';
+import styles from './comment-card.module.scss';
 
 type ReturnType = Prisma.PromiseReturnType<typeof fetchBlogComments>[0];
 type Props = Omit<ReturnType, 'blog'> & { blog?: ReturnType['blog'] };
@@ -22,31 +25,47 @@ export default async function CommentCard({
 }: Props) {
   const user = (await auth())?.user;
   return (
-    <div>
+    <article id={id} className={styles.card}>
       {blog && (
         <Link href={`/blogs/${blogId}`}>
           <h4>{blog.title}</h4>
         </Link>
       )}
-      <article>
+      <div className={styles.author}>
+        <Link href={`/users/${userId}`}>
+          <Avatar src={image} width={32} height={32} />
+        </Link>
         <div>
-          <Avatar src={image} />
-          <h4>{name}</h4>
-        </div>
-        {replyOn && (
           <p>
-            Reply on : <em>{replyOn.text}</em>
+            <Link href={`/users/${userId}`}>{name}</Link>
           </p>
-        )}
-        <p>{text}</p>
-        {user?.id === userId && (
-          <>
-            <DeleteCommentForm commentId={id} />
-            <CommentCardEdit commentId={id} commentText={text} />
-          </>
-        )}
-        {user && user.id !== userId && <CommentCardReply commentId={id} />}
-      </article>
-    </div>
+          <p className='clr-gray-dark'>{formatDateToNow(createdAt)}</p>
+        </div>
+      </div>
+      {replyOn && (
+        <div className={styles.reply}>
+          <span>
+            <FaReply />
+          </span>
+          <Link href={`#${replyOn.id}`} replace>
+            <div>
+              <div className={styles.author}>
+                <Avatar src={replyOn.user.image} width={24} height={24} />
+                <p>{replyOn.user.name}</p>
+              </div>
+              <p>{replyOn.text}</p>
+            </div>
+          </Link>
+        </div>
+      )}
+      <p>{text}</p>
+      {user?.id === userId && (
+        <div className={styles.controls}>
+          <DeleteCommentForm commentId={id} />
+          <CommentCardEdit commentId={id} commentText={text} />
+        </div>
+      )}
+      {user && user.id !== userId && <CommentCardReply commentId={id} />}
+    </article>
   );
 }

@@ -20,8 +20,9 @@ export default async function Page({ params: { id: blogId }, searchParams }: Pro
   return (
     <Modal>
       <main>
-        <h2>Comments ({count}):</h2>
+        <h2 className='mb-2'>Comments ({count}):</h2>
         <AddCommentForm blogId={blogId} />
+        <div className='mb-4'></div>
         <Order options={commentsOrderOptions} />
         <Suspense key={JSON.stringify(searchParams)} fallback={<h2>LOADING COMMENTS...</h2>}>
           <CommentList filters={{ blogId }} orderBy={parsedOrderBy} page={currentPage} />

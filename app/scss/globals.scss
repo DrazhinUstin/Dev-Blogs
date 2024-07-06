@@ -140,27 +140,6 @@ svg {
   display: block;
 }
 
-.w-100 {
-  width: 100%;
-}
-
-.grid-center {
-  display: grid;
-  place-items: center;
-}
-
-.flex {
-  display: flex;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-sm {
-  font-size: var(--small-text);
-}
-
 .main {
   max-width: var(--max-width);
   width: var(--fluid-width);
@@ -268,12 +247,28 @@ svg {
       margin-top: $size;
     }
 
+    .ml {
+      margin-left: $size;
+    }
+
+    .mr {
+      margin-right: $size;
+    }
+
     .pb {
       padding-bottom: $size;
     }
 
     .pt {
       padding-top: $size;
+    }
+
+    .pl {
+      padding-left: $size;
+    }
+
+    .pr {
+      padding-right: $size;
     }
   }
 
@@ -286,12 +281,28 @@ svg {
       margin-top: $size;
     }
 
+    .ml-#{$i} {
+      margin-left: $size;
+    }
+
+    .mr-#{$i} {
+      margin-right: $size;
+    }
+
     .pb-#{$i} {
       padding-bottom: $size;
     }
 
     .pt-#{$i} {
       padding-top: $size;
+    }
+
+    .pl-#{$i} {
+      padding-left: $size;
+    }
+
+    .pr-#{$i} {
+      padding-right: $size;
     }
   }
 }
@@ -302,6 +313,7 @@ $colors: (
   "white": var(--color-white),
   "red": var(--color-red),
   "gray": var(--color-gray),
+  "gray-dark": var(--color-gray-dark),
 );
 
 @each $name, $value in $colors {
@@ -312,6 +324,31 @@ $colors: (
   .bg-clr-#{$name} {
     background-color: $value;
   }
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.block {
+  display: block;
+}
+
+.grid-center {
+  display: grid;
+  place-items: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-end {
+  text-align: end;
+}
+
+.text-sm {
+  font-size: var(--small-text);
 }
 
 @keyframes appearance {

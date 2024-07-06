@@ -18,6 +18,7 @@ export default async function CommentList({
       {comments.map(({ blog, ...rest }) => (
         <CommentCard key={rest.id} {...{ ...rest, ...(filters.userId && { blog }) }} />
       ))}
+      {comments.length === 0 && <p className='text-center clr-gray-dark'>No comments yet...</p>}
     </div>
   );
 }

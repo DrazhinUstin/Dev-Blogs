@@ -282,7 +282,9 @@ export async function fetchBlogComments(
       skip: (page - 1) * commentsPerPage,
       take: commentsPerPage,
       include: {
-        replyOn: { select: { id: true, text: true } },
+        replyOn: {
+          select: { id: true, text: true, user: { select: { image: true, name: true } } },
+        },
         user: { select: { name: true, image: true } },
         blog: { select: { title: true } },
       },
