@@ -171,7 +171,7 @@ export async function replyOnComment(
   }
   try {
     await prisma.comment.create({
-      data: { text: validatedField.data, userId: user.id, blogId, commentId },
+      data: { text: validatedField.data, userId: user.id, blogId, replyOnId: commentId },
     });
     revalidatePath('/');
   } catch (error) {

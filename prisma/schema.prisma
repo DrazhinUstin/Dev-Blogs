@@ -108,17 +108,17 @@ model UsersOnBlogs {
 }
 
 model Comment {
-  id         String   @id @default(cuid())
-  userId     String
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  blogId     String
-  blog       Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
-  commentId  String?  @unique
-  replyOn    Comment? @relation("CommentReply", fields: [commentId], references: [id], onDelete: Cascade)
-  respondent Comment? @relation("CommentReply")
-  text       String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  blogId      String
+  blog        Blog      @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  replyOnId   String?
+  replyOn     Comment?  @relation("CommentRespondents", fields: [replyOnId], references: [id], onDelete: Cascade)
+  respondents Comment[] @relation("CommentRespondents")
+  text        String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@map("comments")
 }
