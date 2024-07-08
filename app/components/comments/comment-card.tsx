@@ -27,9 +27,9 @@ export default async function CommentCard({
   return (
     <article id={id} className={styles.card}>
       {blog && (
-        <Link href={`/blogs/${blogId}`}>
-          <h4>{blog.title}</h4>
-        </Link>
+        <h4>
+          <Link href={`/blogs/${blogId}`}>{blog.title}</Link>
+        </h4>
       )}
       <div className={styles.author}>
         <Link href={`/users/${userId}`}>

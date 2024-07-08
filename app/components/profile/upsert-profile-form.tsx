@@ -8,11 +8,10 @@ import type { Profile } from '@prisma/client';
 export default function UpsertProfileForm({ profile }: { profile: Profile | null }) {
   const [state, dispatch] = useFormState(upsertProfile, {});
   return (
-    <form action={dispatch}>
+    <form action={dispatch} className='form'>
       <div>
         <p>Gender:</p>
         <div>
-          <label htmlFor='unknown'>Prefer not to say</label>
           <input
             type='radio'
             name='gender'
@@ -20,9 +19,9 @@ export default function UpsertProfileForm({ profile }: { profile: Profile | null
             value=''
             defaultChecked={!profile?.gender}
           />
+          <label htmlFor='unknown'>Prefer not to say</label>
         </div>
         <div>
-          <label htmlFor='male'>Male</label>
           <input
             type='radio'
             name='gender'
@@ -30,9 +29,9 @@ export default function UpsertProfileForm({ profile }: { profile: Profile | null
             value='male'
             defaultChecked={profile?.gender === 'male'}
           />
+          <label htmlFor='male'>Male</label>
         </div>
         <div>
-          <label htmlFor='female'>Female</label>
           <input
             type='radio'
             name='gender'
@@ -40,6 +39,7 @@ export default function UpsertProfileForm({ profile }: { profile: Profile | null
             value='female'
             defaultChecked={profile?.gender === 'female'}
           />
+          <label htmlFor='female'>Female</label>
         </div>
         {state.fieldErrors?.gender && <p>{state.fieldErrors.gender}</p>}
       </div>
@@ -85,7 +85,7 @@ export default function UpsertProfileForm({ profile }: { profile: Profile | null
         {state.fieldErrors?.bio && <p>{state.fieldErrors.bio}</p>}
       </div>
       {state.errorMsg && <p>{state.errorMsg}</p>}
-      <FormSubmitBtn>update</FormSubmitBtn>
+      <FormSubmitBtn className='btn'>submit</FormSubmitBtn>
     </form>
   );
 }

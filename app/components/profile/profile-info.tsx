@@ -3,6 +3,7 @@ import { fetchProfile } from '@/app/lib/data';
 import Link from 'next/link';
 import { FaGithub, FaLinkedin, FaGlobe } from 'react-icons/fa6';
 import { FaFemale, FaMale } from 'react-icons/fa';
+import styles from './profile-info.module.scss';
 
 export async function ProfileInfo() {
   const user = (await auth())?.user;
@@ -11,8 +12,10 @@ export async function ProfileInfo() {
   if (!profile) {
     return (
       <section>
-        <h2>Additional info:</h2>
-        <Link href='/profile/edit'>Add more about yourself</Link>
+        <h2 className='mb-4'>Additional info:</h2>
+        <Link href='/profile/edit' className='btn'>
+          Add more about yourself
+        </Link>
       </section>
     );
   }
@@ -21,12 +24,12 @@ export async function ProfileInfo() {
   const socialsExist = !!(websiteUrl || githubUrl || linkedinUrl);
   return (
     <section>
-      <h2>Additional info:</h2>
-      <ul>
+      <h3 className='mb-4'>Additional info:</h3>
+      <ul className={styles.list}>
         {socialsExist && (
           <li>
             Socials:
-            <span>
+            <span className={styles.socials}>
               {websiteUrl && (
                 <Link href={websiteUrl}>
                   <FaGlobe />
@@ -48,7 +51,7 @@ export async function ProfileInfo() {
         {gender && (
           <li>
             Gender:
-            <span>
+            <span className={styles.gender}>
               {gender === 'male' ? <FaMale /> : <FaFemale />} {gender}
             </span>
           </li>
@@ -60,7 +63,6 @@ export async function ProfileInfo() {
           </li>
         )}
       </ul>
-      <Link href='/profile/edit'>Edit</Link>
     </section>
   );
 }

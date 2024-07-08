@@ -242,12 +242,23 @@ export async function fetchUserLikedBlogs(
               title: true,
               description: true,
               imageUrl: true,
-              _count: { select: { likes: true } },
+              createdAt: true,
+              user: {
+                select: {
+                  name: true,
+                  image: true,
+                },
+              },
+              _count: { select: { likes: true, comments: true } },
             },
           },
         },
       })
-    ).map(({ blog: { _count, ...blog } }) => ({ ...blog, likesCount: _count.likes }));
+    ).map(({ blog: { _count, ...blog } }) => ({
+      ...blog,
+      likesCount: _count.likes,
+      commentsCount: _count.comments,
+    }));
     return blogs;
   } catch (error) {
     console.error('Database Error:', error);

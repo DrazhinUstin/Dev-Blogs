@@ -10,7 +10,7 @@ export default function SignOutForm() {
         await signOut();
       }}
     >
-      <FormSubmitBtn>
+      <FormSubmitBtn className='btn-flex bg-clr-red'>
         <FaDoorOpen /> sign out
       </FormSubmitBtn>
     </form>

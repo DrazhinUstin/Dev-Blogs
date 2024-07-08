@@ -6,7 +6,7 @@ import { put, del, BlobAccessError, BlobStoreSuspendedError } from '@vercel/blob
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { BlogFormSchema, ProfileFormSchema, requiredString } from '@/app/lib/schemas';
-import type { Blog, Profile } from '@prisma/client';
+import type { Blog } from '@prisma/client';
 import type { BlogFormState, ProfileFormState } from './types';
 
 export async function createBlog(

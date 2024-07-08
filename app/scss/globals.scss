@@ -83,7 +83,7 @@ button {
   font-family: inherit;
 }
 
-input:not([type='checkbox']),
+input:not([type='checkbox'], [type='radio']),
 select,
 textarea {
   padding: 0.375rem;
@@ -104,7 +104,8 @@ textarea {
   }
 }
 
-input[type='checkbox'] {
+input[type='checkbox'],
+input[type="radio"] {
   width: 1rem;
   height: 1rem;
   accent-color: var(--color-primary-2);
@@ -168,7 +169,7 @@ svg {
     margin-bottom: 1rem;
   }
 
-  div:has(input[type="checkbox"]) {
+  div:has(> input[type="checkbox"], > input[type="radio"]) {
     display: flex;
     align-items: center;
     column-gap: 0.375rem;
@@ -179,7 +180,7 @@ svg {
     margin-bottom: 0.375rem;
   }
 
-  input:not([type="checkbox"]),
+  input:not([type="checkbox"], [type="radio"]),
   select,
   textarea {
     width: 100%;
@@ -337,6 +338,10 @@ $colors: (
 .grid-center {
   display: grid;
   place-items: center;
+}
+
+.m-auto {
+  margin: auto;
 }
 
 .text-center {

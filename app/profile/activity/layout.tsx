@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      <h2>Activity</h2>
-      <nav>
+      <h2 className='mb-4 text-center'>Activity</h2>
+      <nav className='text-center'>
         <NavLinks
           links={[
             { id: 1, href: '/profile/activity/likes', label: 'likes' },

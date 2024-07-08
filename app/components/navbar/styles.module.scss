@@ -117,5 +117,17 @@
     border-radius: var(--border-radius);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     background-color: var(--background-color);
+
+    li:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      column-gap: 0.375rem;
+      color: var(--color-primary);
+      text-transform: capitalize;
+    }
   }
 }

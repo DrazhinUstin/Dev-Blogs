@@ -1,0 +1,13 @@
+.list {
+  margin-bottom: 2rem;
+
+  li {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    align-items: center;
+
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+@use '@/app/scss/mixins';
+
+.container {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  align-items: flex-start;
+  gap: 2rem;
+
+  @include mixins.breakpoint-down('md') {
+    grid-template-columns: unset;
+  }
+}
+
+.sidebar {
+  position: sticky;
+  top: var(--navbar-height);
+
+  nav {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include mixins.breakpoint-down('md') {
+    position: unset;
+  }
+}

@@ -24,7 +24,6 @@ export default async function Page({ searchParams }: Props) {
   const totalPages = await fetchUserLikedBlogsTotalPages(currentUser?.id as string);
   return (
     <main>
-      <h2>Liked Blogs</h2>
       <div>
         <Order options={usersOnBlogsOrderOptions} />
         <Suspense key={JSON.stringify(searchParams)} fallback={<h2>LOADING...</h2>}>
@@ -53,7 +52,7 @@ async function List({
           <BlogCard key={blog.id} {...blog} />
         ))}
       </div>
-      {blogs.length === 0 && <p>You have no liked blogs...</p>}
+      {blogs.length === 0 && <p className='text-center'>You have no liked blogs...</p>}
     </div>
   );
 }
