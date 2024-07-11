@@ -164,8 +164,16 @@ svg {
   margin: 0 auto;
 }
 
+.card {
+  max-width: 600px;
+  width: var(--fluid-width);
+  padding: 1rem;
+  border: 1px solid var(--color-gray-light);
+  border-radius: var(--border-radius);
+}
+
 .form {
-  &>div:not(:last-child) {
+  &>*:not(:last-child) {
     margin-bottom: 1rem;
   }
 

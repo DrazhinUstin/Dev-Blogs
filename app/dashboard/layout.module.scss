@@ -1,0 +1,17 @@
+@use '@/app/scss/mixins';
+
+.container {
+  min-height: calc(100vh - var(--navbar-height));
+  display: grid;
+  grid-template-columns: auto 1fr;
+
+  &> :last-child {
+    width: 90%;
+    margin: 0 auto;
+    padding: 4rem 0;
+  }
+
+  @include mixins.breakpoint-down('md') {
+    grid-template-columns: unset;
+  }
+}

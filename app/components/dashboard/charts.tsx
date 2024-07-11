@@ -3,6 +3,7 @@ import { fetchUserBlogsChartData, fetchUserCategoriesChartData } from '@/app/lib
 import type { ChartData } from 'chart.js';
 import BarChart from '@/app/components/charts/bar-chart';
 import PieChart from '@/app/components/charts/pie-chart';
+import styles from './charts.module.scss';
 
 export default async function Charts() {
   const userId = (await auth())?.user?.id as string;
@@ -44,7 +45,7 @@ export default async function Charts() {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       {blogsChartData.data[0] && <BarChart title='Blogs Likes' data={barChartData} />}
       {categoriesChartData.data[0] && <PieChart title='Blogs Categories' data={pieChartData} />}
     </div>

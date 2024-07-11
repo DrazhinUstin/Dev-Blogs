@@ -7,7 +7,7 @@ const icons: { [key: string]: JSX.Element } = { github: <FaGithub />, google: <F
 export default function Providers() {
   return (
     <div>
-      {providers.map((provider) => {
+      {providers.map((provider, index) => {
         const { id, name } = typeof provider === 'function' ? provider() : provider;
         return (
           <form
@@ -16,8 +16,9 @@ export default function Providers() {
               'use server';
               await signIn(id);
             }}
+            className={index !== providers.length - 1 ? 'mb-2' : undefined}
           >
-            <FormSubmitBtn>
+            <FormSubmitBtn className='btn-flex w-100'>
               {icons[id]}
               {name}
             </FormSubmitBtn>

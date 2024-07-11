@@ -1,0 +1,67 @@
+@use '@/app/scss/mixins';
+
+.sidebar {
+  --width: 200px;
+  --visible-width: 24px;
+  --offset: calc(var(--width) * -1 + var(--visible-width));
+  width: var(--width);
+  margin-left: var(--offset);
+  border-right: 1px solid var(--color-gray-light);
+  transition: var(--transition);
+  transition-property: margin-left opacity;
+
+  &.open {
+    margin-left: 0;
+  }
+
+  &>div {
+    position: sticky;
+    top: var(--navbar-height);
+    padding: 2rem 0;
+  }
+
+  h2 {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+
+    a {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      padding: 0.375rem 0 0.375rem 1rem;
+      background-color: var(--color-gray-light);
+      color: var(--color-black);
+      text-transform: capitalize;
+
+      &.active {
+        background-color: var(--color-black);
+        color: var(--color-white);
+      }
+
+      span {
+        width: var(--visible-width);
+        display: inline-flex;
+        justify-content: center;
+      }
+    }
+  }
+
+  @include mixins.breakpoint-down('md') {
+    position: fixed;
+    top: var(--navbar-height);
+    bottom: 0;
+    background-color: var(--color-white);
+    opacity: 0.6;
+    z-index: 100;
+
+    &.open {
+      opacity: 1;
+    }
+  }
+}

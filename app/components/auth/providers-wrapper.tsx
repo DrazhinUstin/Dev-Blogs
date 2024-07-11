@@ -6,10 +6,11 @@ export default function ProvidersWrapper({ children }: { children: React.ReactNo
   const searchParams = useSearchParams();
   const urlError = searchParams.get('error');
   return (
-    <div>
+    <div className='card text-center'>
+      <h2 className='mb-2'>Sign in with:</h2>
       {children}
       {urlError && (
-        <p>
+        <p className='mt-2'>
           {urlError === 'OAuthAccountNotLinked'
             ? 'Another account already exists with the same e-mail address'
             : `${urlError} - An unexpected error occurred`}

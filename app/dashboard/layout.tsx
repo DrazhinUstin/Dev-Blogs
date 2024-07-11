@@ -1,4 +1,5 @@
-import NavLinks from '../components/nav-links';
+import Sidebar from '@/app/components/dashboard/sidebar';
+import styles from './layout.module.scss';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -10,16 +11,8 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
-      <aside>
-        <NavLinks
-          links={[
-            { id: 1, href: '/dashboard', label: 'overview' },
-            { id: 2, href: '/dashboard/blogs', label: 'manage blogs' },
-            { id: 3, href: '/dashboard/blogs/create', label: 'create blog' },
-          ]}
-        />
-      </aside>
+    <div className={styles.container}>
+      <Sidebar />
       <div>{children}</div>
     </div>
   );

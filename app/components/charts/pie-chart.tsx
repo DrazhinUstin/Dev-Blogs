@@ -9,7 +9,6 @@ import {
   type ChartOptions,
 } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import styles from './styles.module.scss';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -32,7 +31,7 @@ export default function PieChart({ title, data }: { title: string; data: ChartDa
     },
   };
   return (
-    <div className={styles.container}>
+    <div style={{ position: 'relative' }}>
       <Pie data={data} options={options} />
     </div>
   );

@@ -12,7 +12,6 @@ import {
   type ChartOptions,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import styles from './styles.module.scss';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -48,7 +47,7 @@ export default function BarChart({ title, data }: { title: string; data: ChartDa
     },
   };
   return (
-    <div className={styles.container}>
+    <div style={{ position: 'relative' }}>
       <Bar options={options} data={data} />
     </div>
   );

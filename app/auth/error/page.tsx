@@ -22,11 +22,13 @@ export default function Page() {
   const searchParams = useSearchParams();
   const error = searchParams.get('error') as Error;
   return (
-    <main>
-      <div>
-        <h2>Authentication error</h2>
-        <p>{errorMap[error]}</p>
-        <Link href='/auth/login'>back to login</Link>
+    <main className='main grid-center'>
+      <div className='text-center'>
+        <h2 className='mb-4'>Authentication error</h2>
+        <p className='mb-4'>{errorMap[error]}</p>
+        <Link href='/auth/login' className='btn'>
+          back to login
+        </Link>
       </div>
     </main>
   );

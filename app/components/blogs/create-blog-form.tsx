@@ -8,7 +8,7 @@ import type { Category } from '@prisma/client';
 export default function CreateBlogForm({ categories }: { categories: Category[] }) {
   const [state, dispatch] = useFormState(createBlog, {});
   return (
-    <form action={dispatch}>
+    <form action={dispatch} className='form'>
       <h2>Create a Blog</h2>
       <div>
         <label htmlFor='categoryName'>category name:</label>
@@ -42,7 +42,7 @@ export default function CreateBlogForm({ categories }: { categories: Category[] 
         {state.fieldErrors?.content && <p>{state.fieldErrors.content}</p>}
       </div>
       {state.errorMsg && <p>{state.errorMsg}</p>}
-      <FormSubmitBtn>create</FormSubmitBtn>
+      <FormSubmitBtn className='btn w-100'>create</FormSubmitBtn>
     </form>
   );
 }

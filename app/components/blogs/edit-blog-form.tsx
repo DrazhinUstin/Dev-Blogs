@@ -9,8 +9,8 @@ export default function EditBlogForm({ blog, categories }: { blog: Blog; categor
   const editBlogWithId = editBlog.bind(null, blog.id, blog.imageUrl);
   const [state, dispatch] = useFormState(editBlogWithId, {});
   return (
-    <form action={dispatch}>
-      <h2>Edit a Blog</h2>
+    <form action={dispatch} className='form'>
+      <h2>Edit "{blog.title}"</h2>
       <div>
         <label htmlFor='categoryName'>Category name:</label>
         <select name='categoryName' id='categoryName' defaultValue={blog.categoryName}>
@@ -55,7 +55,7 @@ export default function EditBlogForm({ blog, categories }: { blog: Blog; categor
         {state.fieldErrors?.content && <p>{state.fieldErrors.content}</p>}
       </div>
       {state.errorMsg && <p>{state.errorMsg}</p>}
-      <FormSubmitBtn>edit</FormSubmitBtn>
+      <FormSubmitBtn className='btn w-100'>edit</FormSubmitBtn>
     </form>
   );
 }

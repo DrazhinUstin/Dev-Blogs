@@ -7,6 +7,7 @@ import Order from '@/app/components/order';
 import { blogsOrderOptions } from '@/app/lib/order-options';
 import BlogList from '@/app/components/blogs/blog-list';
 import Pagination from '@/app/components/pagination';
+import styles from './page.module.scss';
 import type { BlogsPageSearchParams } from '@/app/lib/types';
 import type { Metadata } from 'next';
 
@@ -30,15 +31,18 @@ export default async function Page({ searchParams }: Props) {
   ]);
   return (
     <main>
-      <h2>Blogs</h2>
-      <Link href='/dashboard/blogs/create'>create a blog</Link>
-      <div>
-        <Filters categories={categories} />
-        <Order options={blogsOrderOptions} />
-        <Suspense key={JSON.stringify(searchParams)} fallback={<h2>LOADING...</h2>}>
-          <BlogList filters={filters} orderBy={parsedOrderBy} page={currentPage} />
-        </Suspense>
-        <Pagination currentPage={currentPage} totalPages={totalPages} />
+      <h2 className='mb-4'>Manage Blogs</h2>
+      <div className={styles.container}>
+        <aside>
+          <Filters categories={categories} />
+        </aside>
+        <div>
+          <Order options={blogsOrderOptions} />
+          <Suspense key={JSON.stringify(searchParams)} fallback={<h2>LOADING...</h2>}>
+            <BlogList filters={filters} orderBy={parsedOrderBy} page={currentPage} />
+          </Suspense>
+          <Pagination currentPage={currentPage} totalPages={totalPages} />
+        </div>
       </div>
     </main>
   );

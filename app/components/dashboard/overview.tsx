@@ -1,19 +1,20 @@
 import { auth } from '@/auth';
 import { fetchUserOverview } from '@/app/lib/data';
 import { FaFilePen, FaThumbsUp, FaComments } from 'react-icons/fa6';
+import styles from './overview.module.scss';
 
 export default async function Overview() {
   const user = (await auth())?.user;
   const { blogsCount, likesCount, commentsCount } = await fetchUserOverview(user?.id as string);
   return (
-    <div>
+    <div className={styles.container}>
       <article>
         <span>
           <FaFilePen />
         </span>
         <div>
-          <h4>Blogs Created:</h4>
-          <p>{blogsCount}</p>
+          <h2>{blogsCount}</h2>
+          <p>Total Blogs:</p>
         </div>
       </article>
       <article>
@@ -21,8 +22,8 @@ export default async function Overview() {
           <FaThumbsUp />
         </span>
         <div>
-          <h4>Likes On Created Blogs:</h4>
-          <p>{likesCount}</p>
+          <h2>{likesCount}</h2>
+          <p>Total Likes:</p>
         </div>
       </article>
       <article>
@@ -30,8 +31,8 @@ export default async function Overview() {
           <FaComments />
         </span>
         <div>
-          <h4>Comments On Created Blogs:</h4>
-          <p>{commentsCount}</p>
+          <h2>{commentsCount}</h2>
+          <p>Total Comments:</p>
         </div>
       </article>
     </div>

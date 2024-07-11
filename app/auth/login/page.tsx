@@ -3,7 +3,7 @@ import Providers from '@/app/components/auth/providers';
 
 export default function Page() {
   return (
-    <main>
+    <main className='main grid-center'>
       <ProvidersWrapper>
         <Providers />
       </ProvidersWrapper>
