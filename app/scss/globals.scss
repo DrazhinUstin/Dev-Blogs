@@ -264,6 +264,16 @@ svg {
       margin-right: $size;
     }
 
+    .mx {
+      margin-left: $size;
+      margin-right: $size;
+    }
+
+    .my {
+      margin-top: $size;
+      margin-bottom: $size;
+    }
+
     .pb {
       padding-bottom: $size;
     }
@@ -278,6 +288,16 @@ svg {
 
     .pr {
       padding-right: $size;
+    }
+
+    .px {
+      padding-left: $size;
+      padding-right: $size;
+    }
+
+    .py {
+      padding-top: $size;
+      padding-bottom: $size;
     }
   }
 
@@ -298,6 +318,16 @@ svg {
       margin-right: $size;
     }
 
+    .mx-#{$i} {
+      margin-left: $size;
+      margin-right: $size;
+    }
+
+    .my-#{$i} {
+      margin-top: $size;
+      margin-bottom: $size;
+    }
+
     .pb-#{$i} {
       padding-bottom: $size;
     }
@@ -312,6 +342,16 @@ svg {
 
     .pr-#{$i} {
       padding-right: $size;
+    }
+
+    .px-#{$i} {
+      padding-left: $size;
+      padding-right: $size;
+    }
+
+    .py-#{$i} {
+      padding-top: $size;
+      padding-bottom: $size;
     }
   }
 }

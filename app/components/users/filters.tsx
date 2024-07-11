@@ -27,7 +27,7 @@ export default function Filters() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='form'>
       <div>
         <label htmlFor='query'>Search:</label>
         <input
@@ -39,7 +39,6 @@ export default function Filters() {
         />
       </div>
       <div>
-        <label htmlFor='withBio'>With bio:</label>
         <input
           type='checkbox'
           name='withBio'
@@ -47,8 +46,9 @@ export default function Filters() {
           value={'true' satisfies UserFilters['withBio']}
           defaultChecked={!!searchParams.get('withBio')}
         />
+        <label htmlFor='withBio'>With bio:</label>
       </div>
-      <FormSubmitBtn>submit</FormSubmitBtn>
+      <FormSubmitBtn className='btn w-100'>apply</FormSubmitBtn>
     </form>
   );
 }

@@ -2,7 +2,6 @@ import { auth } from '@/auth';
 import NavLinks from '@/app/components/nav-links';
 import type { User } from 'next-auth';
 import Avatar from '@/app/components/avatar';
-import styles from './layout.module.scss';
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const user = (await auth())?.user as User;

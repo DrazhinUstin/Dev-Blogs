@@ -27,7 +27,7 @@ export default async function Page({ searchParams }: Props) {
   ]);
   return (
     <main className='main'>
-      <h2>Blogs</h2>
+      <h2 className='text-center mb-4'>Blogs</h2>
       <div className={styles.container}>
         <aside>
           <Filters categories={categories} />

@@ -6,6 +6,7 @@ import { blogsOrderOptions } from '@/app/lib/order-options';
 import BlogList from '@/app/components/blogs/blog-list';
 import Pagination from '@/app/components/pagination';
 import type { BlogsPageSearchParams } from '@/app/lib/types';
+import styles from '@/app/blogs/page.module.scss';
 
 interface Props {
   params: { id: string };
@@ -23,7 +24,7 @@ export default async function Page({ params: { id: userId }, searchParams }: Pro
   ]);
   return (
     <main>
-      <div>
+      <div className={styles.container}>
         <aside>
           <Filters categories={categories} />
         </aside>

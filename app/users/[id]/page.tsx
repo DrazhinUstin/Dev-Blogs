@@ -1,7 +1,8 @@
 import { fetchUserById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { FaEnvelope } from 'react-icons/fa6';
-import { FaFemale, FaMale } from 'react-icons/fa';
+import { FaFemale, FaMale, FaCalendar } from 'react-icons/fa';
+import styles from './page.module.scss';
 
 export default async function Page({ params: { id } }: { params: { id: string } }) {
   const user = await fetchUserById(id);
@@ -13,18 +14,32 @@ export default async function Page({ params: { id } }: { params: { id: string } 
   const { email, createdAt, profile } = user;
   return (
     <main>
-      {profile?.bio && <p>{profile.bio}</p>}
-      <ul>
+      <ul className={styles.list}>
         <li>
-          <FaEnvelope /> {email}
+          <span>
+            <FaEnvelope />
+          </span>
+          {email}
         </li>
         {profile?.gender && (
           <li>
-            {profile.gender === 'male' ? <FaMale /> : <FaFemale />} {profile.gender}
+            <span>{profile.gender === 'male' ? <FaMale /> : <FaFemale />}</span>
+            {profile.gender}
           </li>
         )}
+        <li>
+          <span>
+            <FaCalendar />
+          </span>
+          Joined {createdAt.toLocaleDateString()}
+        </li>
       </ul>
-      <p>Member since: {createdAt.toLocaleDateString()}</p>
+      {profile?.bio && (
+        <div className='mt-2'>
+          <h4 className='mb'>Bio:</h4>
+          <p>{profile.bio}</p>
+        </div>
+      )}
     </main>
   );
 }

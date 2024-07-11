@@ -5,6 +5,7 @@ import { FaGithub, FaLinkedin, FaGlobe } from 'react-icons/fa6';
 import Avatar from '@/app/components/avatar';
 import NavLinks from '@/app/components/nav-links';
 import type { Metadata } from 'next';
+import styles from './layout.module.scss';
 
 interface Props {
   params: { id: string };
@@ -37,12 +38,12 @@ export default async function Layout({
 
   const { name, image, blogsCount, profile } = user;
   return (
-    <div>
-      <div>
-        <Avatar src={image} />
+    <div className='main'>
+      <header className={styles.header}>
+        <Avatar src={image} width={100} height={100} />
         <div>
           <h2>{name}</h2>
-          <div>
+          <p className={styles.socials}>
             {profile?.websiteUrl && (
               <Link href={profile.websiteUrl}>
                 <FaGlobe />
@@ -58,10 +59,10 @@ export default async function Layout({
                 <FaLinkedin />
               </Link>
             )}
-          </div>
+          </p>
         </div>
-      </div>
-      <nav>
+      </header>
+      <nav className='text-center my-4'>
         <NavLinks
           links={[
             { id: 1, href: `/users/${id}`, label: 'about' },

@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 import UserList from '@/app/components/users/user-list';
 import Pagination from '@/app/components/pagination';
 import type { UsersPageSearchParams } from '../lib/types';
+import styles from './page.module.scss';
 
 interface Props {
   searchParams: UsersPageSearchParams;
@@ -17,9 +18,9 @@ export default async function Page({ searchParams }: Props) {
   const currentPage = Number(page) || 1;
   const totalPages = await fetchAuthorsTotalPages(filters);
   return (
-    <main>
-      <h2>Authors</h2>
-      <div>
+    <main className='main'>
+      <h2 className='mb-4 text-center'>Authors</h2>
+      <div className={styles.container}>
         <aside>
           <Filters />
         </aside>
