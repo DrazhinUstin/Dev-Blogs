@@ -3,9 +3,19 @@
 .container {
   display: grid;
   grid-template-columns: 320px 1fr;
+  align-items: flex-start;
   gap: 2rem;
+
+  aside {
+    position: sticky;
+    top: var(--navbar-height);
+  }
 
   @include mixins.breakpoint-down('lg') {
     grid-template-columns: unset;
+
+    aside {
+      position: unset;
+    }
   }
 }

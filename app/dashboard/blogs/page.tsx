@@ -1,13 +1,12 @@
 import { auth } from '@/auth';
 import { Suspense } from 'react';
-import Link from 'next/link';
 import { fetchCategories, fetchBlogsTotalPages } from '@/app/lib/data';
 import Filters from '@/app/components/blogs/filters';
 import Order from '@/app/components/order';
 import { blogsOrderOptions } from '@/app/lib/order-options';
 import BlogList from '@/app/components/blogs/blog-list';
 import Pagination from '@/app/components/pagination';
-import styles from './page.module.scss';
+import styles from '@/app/blogs/page.module.scss';
 import type { BlogsPageSearchParams } from '@/app/lib/types';
 import type { Metadata } from 'next';
 

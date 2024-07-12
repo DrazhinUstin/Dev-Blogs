@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { FaGithub, FaLinkedin, FaGlobe } from 'react-icons/fa6';
 import Avatar from '@/app/components/avatar';
+import { Suspense } from 'react';
+import ToggleFollowingForm from '@/app/components/users/toggle-following-form';
 import NavLinks from '@/app/components/nav-links';
 import type { Metadata } from 'next';
 import styles from './layout.module.scss';
@@ -60,6 +62,15 @@ export default async function Layout({
               </Link>
             )}
           </p>
+          <Suspense
+            fallback={
+              <button className='btn' disabled>
+                follow
+              </button>
+            }
+          >
+            <ToggleFollowingForm userId={user.id} />
+          </Suspense>
         </div>
       </header>
       <nav className='text-center my-4'>

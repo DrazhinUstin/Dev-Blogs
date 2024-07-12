@@ -22,6 +22,8 @@ model User {
   blogs         Blog[]
   likedBlogs    UsersOnBlogs[]
   comments      Comment[]
+  followedBy    User[]         @relation("UserFollows")
+  following     User[]         @relation("UserFollows")
 
   @@map("users")
 }
