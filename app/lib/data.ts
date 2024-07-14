@@ -17,11 +17,11 @@ export async function fetchUserById(id: string) {
   try {
     const user = await prisma.user.findUnique({
       where: { id },
-      include: { profile: true, _count: { select: { blogs: true } } },
+      include: { profile: true, _count: { select: { blogs: true, followedBy: true } } },
     });
     if (user) {
       const { _count, ...rest } = user;
-      return { ...rest, blogsCount: _count.blogs };
+      return { ...rest, blogsCount: _count.blogs, followersCount: _count.followedBy };
     }
     return user;
   } catch (error) {
@@ -320,13 +320,13 @@ export async function fetchBlogCommentsTotalPages(filters: CommentsFilters) {
 
 const authorsPerPage = 6;
 
-export async function fetchAuthors(
+export async function fetchUsers(
   filters: UserFilters,
   orderBy: Prisma.UserOrderByWithRelationInput,
   page: number
 ) {
   try {
-    const { query, withBio } = filters;
+    const { query, withBio, followingId } = filters;
     const queryWhereInput: Prisma.UserWhereInput = {
       OR: [
         {
@@ -350,7 +350,7 @@ export async function fetchAuthors(
       AND: [
         query ? queryWhereInput : {},
         withBio ? withBioWhereInput : {},
-        { blogs: { some: {} } },
+        followingId ? { following: { some: { id: followingId } } } : {},
       ],
     };
     const authors = (
@@ -363,11 +363,15 @@ export async function fetchAuthors(
           id: true,
           name: true,
           image: true,
-          profile: true,
-          _count: { select: { blogs: true } },
+          profile: { select: { bio: true } },
+          _count: { select: { blogs: true, followedBy: true } },
         },
       })
-    ).map(({ _count, ...rest }) => ({ ...rest, blogsCount: _count.blogs }));
+    ).map(({ _count, ...rest }) => ({
+      ...rest,
+      blogsCount: _count.blogs,
+      followersCount: _count.followedBy,
+    }));
     return authors;
   } catch (error) {
     console.error('Database Error:', error);
@@ -375,9 +379,9 @@ export async function fetchAuthors(
   }
 }
 
-export async function fetchAuthorsTotalPages(filters: UserFilters) {
+export async function fetchUsersTotalPages(filters: UserFilters) {
   try {
-    const { query, withBio } = filters;
+    const { query, withBio, followingId } = filters;
     const queryWhereInput: Prisma.UserWhereInput = {
       OR: [
         {
@@ -401,7 +405,7 @@ export async function fetchAuthorsTotalPages(filters: UserFilters) {
       AND: [
         query ? queryWhereInput : {},
         withBio ? withBioWhereInput : {},
-        { blogs: { some: {} } },
+        followingId ? { following: { some: { id: followingId } } } : {},
       ],
     };
     const count = await prisma.user.count({ where });
@@ -418,12 +422,12 @@ export async function fetchUserOverview(userId: string) {
       where: { id: userId },
       select: {
         blogs: { select: { _count: { select: { likes: true, comments: true } } } },
-        _count: { select: { blogs: true } },
+        _count: { select: { blogs: true, followedBy: true } },
       },
     });
     if (!data) throw Error('User does not exist');
     const {
-      _count: { blogs: blogsCount },
+      _count: { blogs: blogsCount, followedBy: followersCount },
       blogs,
     } = data;
     const { likesCount, commentsCount } = blogs.reduce(
@@ -434,7 +438,7 @@ export async function fetchUserOverview(userId: string) {
       },
       { likesCount: 0, commentsCount: 0 }
     );
-    return { blogsCount, likesCount, commentsCount };
+    return { blogsCount, likesCount, commentsCount, followersCount };
   } catch (error) {
     console.error('Database Error:', error);
     throw Error('Failed to fetch user overview');

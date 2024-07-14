@@ -36,8 +36,10 @@ export const usersOrderOptions: {
   label: string;
   value: Prisma.UserOrderByWithRelationInput;
 }[] = [
-  { id: 1, label: 'Blogs count (desc)', value: { blogs: { _count: 'desc' } } },
-  { id: 2, label: 'Blogs count (asc)', value: { blogs: { _count: 'asc' } } },
-  { id: 3, label: 'Name (desc)', value: { name: 'desc' } },
-  { id: 4, label: 'Name (asc)', value: { name: 'asc' } },
+  { id: 1, label: 'Followers count (desc)', value: { followedBy: { _count: 'desc' } } },
+  { id: 2, label: 'Followers count (asc)', value: { followedBy: { _count: 'asc' } } },
+  { id: 3, label: 'Blogs count (desc)', value: { blogs: { _count: 'desc' } } },
+  { id: 4, label: 'Blogs count (asc)', value: { blogs: { _count: 'asc' } } },
+  { id: 5, label: 'Name (desc)', value: { name: 'desc' } },
+  { id: 6, label: 'Name (asc)', value: { name: 'asc' } },
 ];

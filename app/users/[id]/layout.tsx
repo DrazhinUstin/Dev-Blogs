@@ -38,7 +38,7 @@ export default async function Layout({
     notFound();
   }
 
-  const { name, image, blogsCount, profile } = user;
+  const { name, image, blogsCount, followersCount, profile } = user;
   return (
     <div className='main'>
       <header className={styles.header}>
@@ -78,6 +78,7 @@ export default async function Layout({
           links={[
             { id: 1, href: `/users/${id}`, label: 'about' },
             { id: 2, href: `/users/${id}/blogs`, label: `blogs (${blogsCount})` },
+            { id: 3, href: `/users/${id}/followers`, label: `followers (${followersCount})` },
           ]}
         />
       </nav>

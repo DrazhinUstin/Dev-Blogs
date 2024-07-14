@@ -56,9 +56,10 @@ export type ProfileFormState = {
 export type UserFilters = {
   query?: string;
   withBio?: 'true';
+  followingId?: string;
 };
 
-export type UsersPageSearchParams = UserFilters & {
+export type UsersPageSearchParams = Omit<UserFilters, 'followingId'> & {
   orderBy?: string;
   page?: string;
 };

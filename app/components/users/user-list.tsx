@@ -1,8 +1,7 @@
-import { fetchAuthors } from '@/app/lib/data';
+import { fetchUsers } from '@/app/lib/data';
 import UserCard from './user-card';
 import type { Prisma } from '@prisma/client';
 import type { UserFilters } from '@/app/lib/types';
-import styles from './user-list.module.scss';
 
 export default async function UserList({
   filters,
@@ -13,12 +12,13 @@ export default async function UserList({
   orderBy: Prisma.UserOrderByWithRelationInput;
   page: number;
 }) {
-  const authors = await fetchAuthors(filters, orderBy, page);
+  const users = await fetchUsers(filters, orderBy, page);
   return (
-    <div className={styles.container}>
-      {authors.map((author) => (
-        <UserCard key={author.id} {...author} />
+    <div>
+      {users.map((user) => (
+        <UserCard key={user.id} {...user} />
       ))}
+      {users.length === 0 && <p className='text-center'>No users were found...</p>}
     </div>
   );
 }

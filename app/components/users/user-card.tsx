@@ -1,26 +1,34 @@
 import type { Prisma } from '@prisma/client';
-import { fetchAuthors } from '@/app/lib/data';
+import { fetchUsers } from '@/app/lib/data';
 import Avatar from '@/app/components/avatar';
 import Link from 'next/link';
-import { FaFilePen, FaEye } from 'react-icons/fa6';
+import { FaUsers, FaFilePen, FaEye } from 'react-icons/fa6';
 import styles from './user-card.module.scss';
 
 export default function UserCard({
   id,
   name,
   image,
+  profile,
   blogsCount,
-}: Prisma.PromiseReturnType<typeof fetchAuthors>[0]) {
+  followersCount,
+}: Prisma.PromiseReturnType<typeof fetchUsers>[0]) {
   return (
     <article className={styles.card}>
       <Avatar src={image} />
-      <h4>{name}</h4>
       <div>
-        <Link href={`/users/${id}/blogs`} className='btn-flex w-100'>
-          <FaFilePen /> {blogsCount} {blogsCount === 1 ? 'Blog' : 'Blogs'}
-        </Link>
+        <h4>{name}</h4>
+        <p>{profile?.bio}</p>
+        <p className={styles.stats}>
+          <Link href={`/users/${id}/followers`} title='followers'>
+            <FaUsers /> {followersCount}
+          </Link>
+          <Link href={`/users/${id}/blogs`} title='blogs'>
+            <FaFilePen /> {blogsCount}
+          </Link>
+        </p>
       </div>
-      <Link href={`/users/${id}`} className='btn-flex w-100'>
+      <Link href={`/users/${id}`} className='btn-flex'>
         <FaEye /> view
       </Link>
     </article>

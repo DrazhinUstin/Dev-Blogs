@@ -5,21 +5,22 @@ import Order from '@/app/components/order';
 import { Suspense } from 'react';
 import UserList from '@/app/components/users/user-list';
 import Pagination from '@/app/components/pagination';
-import type { UsersPageSearchParams } from '@/app/lib/types';
-import styles from './page.module.scss';
+import type { UserFilters, UsersPageSearchParams } from '@/app/lib/types';
+import styles from '@/app/users/page.module.scss';
 
 interface Props {
+  params: { id: string };
   searchParams: UsersPageSearchParams;
 }
 
-export default async function Page({ searchParams }: Props) {
-  const { orderBy, page, ...filters } = searchParams;
+export default async function Page({ params, searchParams }: Props) {
+  const { orderBy, page, ...rest } = searchParams;
+  const filters: UserFilters = { ...rest, followingId: params.id };
   const parsedOrderBy = orderBy ? JSON.parse(orderBy) : usersOrderOptions[0].value;
   const currentPage = Number(page) || 1;
   const totalPages = await fetchUsersTotalPages(filters);
   return (
-    <main className='main'>
-      <h2 className='mb-4 text-center'>Authors</h2>
+    <main>
       <div className={styles.container}>
         <aside>
           <Filters />
