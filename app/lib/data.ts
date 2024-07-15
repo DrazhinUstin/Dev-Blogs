@@ -318,7 +318,7 @@ export async function fetchBlogCommentsTotalPages(filters: CommentsFilters) {
   }
 }
 
-const authorsPerPage = 6;
+const usersPerPage = 6;
 
 export async function fetchUsers(
   filters: UserFilters,
@@ -326,7 +326,7 @@ export async function fetchUsers(
   page: number
 ) {
   try {
-    const { query, withBio, followingId } = filters;
+    const { query, withBio, followingId, followedById } = filters;
     const queryWhereInput: Prisma.UserWhereInput = {
       OR: [
         {
@@ -351,14 +351,15 @@ export async function fetchUsers(
         query ? queryWhereInput : {},
         withBio ? withBioWhereInput : {},
         followingId ? { following: { some: { id: followingId } } } : {},
+        followedById ? { followedBy: { some: { id: followedById } } } : {},
       ],
     };
-    const authors = (
+    const users = (
       await prisma.user.findMany({
         where,
         orderBy,
-        skip: (page - 1) * authorsPerPage,
-        take: authorsPerPage,
+        skip: (page - 1) * usersPerPage,
+        take: usersPerPage,
         select: {
           id: true,
           name: true,
@@ -372,7 +373,7 @@ export async function fetchUsers(
       blogsCount: _count.blogs,
       followersCount: _count.followedBy,
     }));
-    return authors;
+    return users;
   } catch (error) {
     console.error('Database Error:', error);
     throw Error('Failed to fetch authors');
@@ -381,7 +382,7 @@ export async function fetchUsers(
 
 export async function fetchUsersTotalPages(filters: UserFilters) {
   try {
-    const { query, withBio, followingId } = filters;
+    const { query, withBio, followingId, followedById } = filters;
     const queryWhereInput: Prisma.UserWhereInput = {
       OR: [
         {
@@ -406,10 +407,11 @@ export async function fetchUsersTotalPages(filters: UserFilters) {
         query ? queryWhereInput : {},
         withBio ? withBioWhereInput : {},
         followingId ? { following: { some: { id: followingId } } } : {},
+        followedById ? { followedBy: { some: { id: followedById } } } : {},
       ],
     };
     const count = await prisma.user.count({ where });
-    return Math.ceil(count / authorsPerPage);
+    return Math.ceil(count / usersPerPage);
   } catch (error) {
     console.error('Database Error:', error);
     throw Error('Failed to fetch authors total pages');

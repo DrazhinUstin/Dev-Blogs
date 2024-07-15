@@ -57,9 +57,10 @@ export type UserFilters = {
   query?: string;
   withBio?: 'true';
   followingId?: string;
+  followedById?: string;
 };
 
-export type UsersPageSearchParams = Omit<UserFilters, 'followingId'> & {
+export type UsersPageSearchParams = Omit<UserFilters, 'followingId' | 'followedById'> & {
   orderBy?: string;
   page?: string;
 };

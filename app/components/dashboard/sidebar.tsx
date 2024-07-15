@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { FaHouse, FaList, FaPenToSquare } from 'react-icons/fa6';
+import { FaHouse, FaList, FaPenToSquare, FaUsers } from 'react-icons/fa6';
 import clsx from 'clsx';
 import styles from './sidebar.module.scss';
 
@@ -11,6 +11,7 @@ const links = [
   { id: 1, href: '/dashboard', label: 'overview', icon: <FaHouse /> },
   { id: 2, href: '/dashboard/blogs', label: 'manage blogs', icon: <FaList /> },
   { id: 3, href: '/dashboard/blogs/create', label: 'create blog', icon: <FaPenToSquare /> },
+  { id: 4, href: '/dashboard/followers', label: 'followers', icon: <FaUsers /> },
 ];
 
 export default function Sidebar() {

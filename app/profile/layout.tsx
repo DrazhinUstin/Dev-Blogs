@@ -18,6 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             links={[
               { id: 1, href: '/profile', label: 'profile' },
               { id: 2, href: '/profile/activity/likes', label: 'activity' },
+              { id: 3, href: '/profile/following', label: 'following' },
             ]}
           />
         </nav>
