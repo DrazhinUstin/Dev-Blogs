@@ -6,7 +6,7 @@ import { put, del, BlobAccessError, BlobStoreSuspendedError } from '@vercel/blob
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { BlogFormSchema, ProfileFormSchema, requiredString } from '@/app/lib/schemas';
-import type { Blog } from '@prisma/client';
+import type { Prisma, Blog } from '@prisma/client';
 import type { BlogFormState, ProfileFormState } from './types';
 
 export async function createBlog(
@@ -222,4 +222,51 @@ export async function upsertProfile(
   }
   revalidatePath('/');
   redirect('/profile');
+}
+
+export async function fetchBlogsForInfiniteScroll({
+  followerId,
+  orderBy,
+  page,
+  blogsPerPage = 10,
+}: {
+  followerId?: string;
+  orderBy: Prisma.BlogOrderByWithRelationInput;
+  page: number;
+  blogsPerPage?: number;
+}) {
+  try {
+    const blogs = await prisma.blog.findMany({
+      where: {
+        ...(followerId ? { user: { followedBy: { some: { id: followerId } } } } : {}),
+      },
+      orderBy,
+      skip: blogsPerPage * (page - 1),
+      take: blogsPerPage,
+      select: {
+        id: true,
+        userId: true,
+        categoryName: true,
+        title: true,
+        description: true,
+        imageUrl: true,
+        createdAt: true,
+        user: {
+          select: {
+            name: true,
+            image: true,
+          },
+        },
+        _count: { select: { likes: true, comments: true } },
+      },
+    });
+    return blogs.map(({ _count, ...blog }) => ({
+      ...blog,
+      likesCount: _count.likes,
+      commentsCount: _count.comments,
+    }));
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw Error('Database Error: Failed to fetch blogs');
+  }
 }

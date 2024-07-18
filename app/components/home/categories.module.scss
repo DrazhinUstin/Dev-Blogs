@@ -1,9 +1,16 @@
 .container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
-  gap: 2rem 1rem;
+  row-gap: 1rem;
 }
 
 .card {
-  text-align: center;
+  color: var(--color-black);
+  font-size: var(--small-text);
+
+  &>*:first-child {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 0.25rem;
+  }
 }

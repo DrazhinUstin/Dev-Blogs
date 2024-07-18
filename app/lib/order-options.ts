@@ -11,6 +11,8 @@ export const blogsOrderOptions: {
   { id: 4, label: 'Title (asc)', value: { title: 'asc' } },
   { id: 5, label: 'Likes (desc)', value: { likes: { _count: 'desc' } } },
   { id: 6, label: 'Likes (asc)', value: { likes: { _count: 'asc' } } },
+  { id: 7, label: 'Comments (desc)', value: { comments: { _count: 'desc' } } },
+  { id: 8, label: 'Comments (asc)', value: { comments: { _count: 'asc' } } },
 ];
 
 export const usersOnBlogsOrderOptions: {

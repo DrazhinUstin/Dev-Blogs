@@ -7,7 +7,7 @@ import { fetchUser } from '@/app/lib/data';
 import type { Provider } from 'next-auth/providers';
 import type { Role } from '@prisma/client';
 
-const protectedRoutes = ['/profile', '/dashboard'];
+const protectedRoutes = ['/profile', '/dashboard', '/following'];
 
 export const providers: Provider[] = [
   GitHub({
