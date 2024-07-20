@@ -29,7 +29,7 @@ export const BlogFormSchema = z.object({
   categoryName: requiredString,
   description: optionalString,
   image: ImageSchema,
-  content: requiredString,
+  content: z.string().min(1, { message: 'Required' }),
 });
 
 export const ProfileFormSchema = z.object({

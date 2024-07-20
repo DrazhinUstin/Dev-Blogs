@@ -2,6 +2,7 @@
 
 import { useFormState } from 'react-dom';
 import { editBlog } from '@/app/lib/actions';
+import WYSIWYGFormField from '@/app/components/wysiwyg-form-field';
 import FormSubmitBtn from '@/app/components/form-submit-btn';
 import type { Blog, Category } from '@prisma/client';
 
@@ -44,14 +45,7 @@ export default function EditBlogForm({ blog, categories }: { blog: Blog; categor
         {state.fieldErrors?.image && <p>{state.fieldErrors.image}</p>}
       </div>
       <div>
-        <label htmlFor='content'>Content:</label>
-        <textarea
-          name='content'
-          id='content'
-          cols={30}
-          rows={10}
-          defaultValue={blog.content}
-        ></textarea>
+        <WYSIWYGFormField name='content' label='content:' initialValue={blog.content} />
         {state.fieldErrors?.content && <p>{state.fieldErrors.content}</p>}
       </div>
       {state.errorMsg && <p>{state.errorMsg}</p>}

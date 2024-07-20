@@ -246,9 +246,15 @@ svg {
 
 .tiptap {
   min-height: 200px;
+  outline: 0;
   padding: 0.5rem;
   border: 1px solid var(--color-gray-light);
   border-radius: var(--border-radius);
+
+  &:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px var(--color-primary);
+  }
 }
 
 @for $i from 1 through 8 {
@@ -409,6 +415,10 @@ $colors: (
 
 .text-sm {
   font-size: var(--small-text);
+}
+
+.text-capitalize {
+  text-transform: capitalize;
 }
 
 @keyframes appearance {

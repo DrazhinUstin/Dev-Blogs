@@ -36,7 +36,7 @@ export default function BlogDetails({
       {imageUrl && (
         <Image src={imageUrl} alt='blog-image' width={400} height={400} className={styles.image} />
       )}
-      <p>{content}</p>
+      <div className='tiptap-output' dangerouslySetInnerHTML={{ __html: content }} />
       <div className={styles.summary}>
         <Suspense
           fallback={

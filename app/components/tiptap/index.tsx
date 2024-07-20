@@ -10,10 +10,12 @@ export default function Editor({
   initialContent,
   handleUpdate,
   charactersLimit: limit = 1000,
+  label,
 }: {
   initialContent?: Content;
   handleUpdate: (content: string) => void;
   charactersLimit?: number;
+  label?: string;
 }) {
   const editor = useEditor({
     extensions: [
@@ -35,6 +37,11 @@ export default function Editor({
 
   return (
     <div>
+      {label && (
+        <p onClick={() => editor.chain().focus()} className='mb text-capitalize'>
+          {label}
+        </p>
+      )}
       <Menu editor={editor} />
       <EditorContent editor={editor} />
       <Counter editor={editor} charactersLimit={limit} />

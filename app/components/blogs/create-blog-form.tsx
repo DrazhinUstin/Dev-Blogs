@@ -2,6 +2,7 @@
 
 import { useFormState } from 'react-dom';
 import { createBlog } from '@/app/lib/actions';
+import WYSIWYGFormField from '@/app/components/wysiwyg-form-field';
 import FormSubmitBtn from '@/app/components/form-submit-btn';
 import type { Category } from '@prisma/client';
 
@@ -37,8 +38,7 @@ export default function CreateBlogForm({ categories }: { categories: Category[] 
         {state.fieldErrors?.image && <p>{state.fieldErrors.image}</p>}
       </div>
       <div>
-        <label htmlFor='content'>content:</label>
-        <textarea name='content' id='content' cols={30} rows={10}></textarea>
+        <WYSIWYGFormField name='content' label='content:' />
         {state.fieldErrors?.content && <p>{state.fieldErrors.content}</p>}
       </div>
       {state.errorMsg && <p>{state.errorMsg}</p>}

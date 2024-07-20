@@ -10,7 +10,7 @@ export default function Counter({
   const wordsCount = editor.storage.characterCount.words();
   const charactersCount = editor.storage.characterCount.characters();
   return (
-    <div className='mt-2'>
+    <div className='mt'>
       <p>
         {wordsCount} words,{' '}
         <span className={charactersCount === charactersLimit ? 'clr-red' : undefined}>
