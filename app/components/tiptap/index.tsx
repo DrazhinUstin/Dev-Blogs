@@ -19,7 +19,12 @@ export default function Editor({
 }) {
   const editor = useEditor({
     extensions: [
-      StarterKit.configure({ heading: { levels: [1, 2, 3, 4] } }),
+      StarterKit.configure({
+        heading: { levels: [1, 2, 3, 4] },
+        bulletList: { HTMLAttributes: { class: 'bullet-list' } },
+        orderedList: { HTMLAttributes: { class: 'ordered-list' } },
+        blockquote: { HTMLAttributes: { class: 'blockquote' } },
+      }),
       CharacterCount.configure({
         limit,
       }),
