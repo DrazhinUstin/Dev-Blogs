@@ -1,6 +1,7 @@
 import { fetchUserById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Breadcrumbs from '@/app/components/breadcrumbs';
 import { FaGithub, FaLinkedin, FaGlobe } from 'react-icons/fa6';
 import Avatar from '@/app/components/avatar';
 import { Suspense } from 'react';
@@ -41,6 +42,13 @@ export default async function Layout({
   const { name, image, blogsCount, followersCount, profile } = user;
   return (
     <div className='main'>
+      <Breadcrumbs
+        items={[
+          { id: 1, label: 'home', href: '/' },
+          { id: 2, label: 'authors', href: '/users' },
+          { id: 3, label: user.name as string },
+        ]}
+      />
       <header className={styles.header}>
         <Avatar src={image} width={100} height={100} />
         <div>

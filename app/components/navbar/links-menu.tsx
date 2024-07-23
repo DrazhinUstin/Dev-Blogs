@@ -8,7 +8,7 @@ import type { User } from 'next-auth';
 import styles from './styles.module.scss';
 
 export default function LinksMenu({ user }: { user?: User }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function LinksMenu({ user }: { user?: User }) {
         {pageLinks.map(
           ({ id, href, label, isProtected }) =>
             ((isProtected && user) || !isProtected) && (
-              <Link key={id} href={href}>
+              <Link key={id} href={href} onClick={() => setIsMenuOpen(false)}>
                 {label}
               </Link>
             )

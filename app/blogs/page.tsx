@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { fetchCategories, fetchBlogsTotalPages } from '@/app/lib/data';
+import Breadcrumbs from '@/app/components/breadcrumbs';
 import Filters from '@/app/components/blogs/filters';
 import Order from '@/app/components/order';
 import { blogsOrderOptions } from '@/app/lib/order-options';
@@ -27,6 +28,12 @@ export default async function Page({ searchParams }: Props) {
   ]);
   return (
     <main className='main'>
+      <Breadcrumbs
+        items={[
+          { id: 1, label: 'home', href: '/' },
+          { id: 2, label: 'blogs' },
+        ]}
+      />
       <h2 className='text-center mb-4'>Blogs</h2>
       <div className={styles.container}>
         <aside>

@@ -1,5 +1,6 @@
 import { fetchUsersTotalPages } from '@/app/lib/data';
 import { usersOrderOptions } from '@/app/lib/order-options';
+import Breadcrumbs from '@/app/components/breadcrumbs';
 import Filters from '@/app/components/users/filters';
 import Order from '@/app/components/order';
 import { Suspense } from 'react';
@@ -19,6 +20,12 @@ export default async function Page({ searchParams }: Props) {
   const totalPages = await fetchUsersTotalPages(filters);
   return (
     <main className='main'>
+      <Breadcrumbs
+        items={[
+          { id: 1, label: 'home', href: '/' },
+          { id: 2, label: 'authors' },
+        ]}
+      />
       <h2 className='mb-4 text-center'>Authors</h2>
       <div className={styles.container}>
         <aside>

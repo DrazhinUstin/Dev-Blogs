@@ -1,6 +1,8 @@
 import { Suspense } from 'react';
-import { fetchBlogCommentsTotalPages } from '@/app/lib/data';
+import { fetchBlogById, fetchBlogCommentsTotalPages } from '@/app/lib/data';
+import { notFound } from 'next/navigation';
 import { commentsOrderOptions } from '@/app/lib/order-options';
+import Breadcrumbs from '@/app/components/breadcrumbs';
 import AddCommentForm from '@/app/components/comments/add-comment-form';
 import Order from '@/app/components/order';
 import CommentList from '@/app/components/comments/comment-list';
@@ -20,9 +22,23 @@ export default async function Page({ params: { id: blogId }, searchParams }: Pro
   const { orderBy, page } = searchParams;
   const parsedOrderBy = orderBy ? JSON.parse(orderBy) : commentsOrderOptions[0].value;
   const currentPage = Number(page) || 1;
-  const { count, totalPages } = await fetchBlogCommentsTotalPages({ blogId });
+  const [blog, { count, totalPages }] = await Promise.all([
+    fetchBlogById(blogId),
+    fetchBlogCommentsTotalPages({ blogId }),
+  ]);
+
+  if (!blog) notFound();
+
   return (
     <main className='main'>
+      <Breadcrumbs
+        items={[
+          { id: 1, label: 'home', href: '/' },
+          { id: 2, label: 'blogs', href: '/blogs' },
+          { id: 3, label: blog.title, href: `/blogs/${blogId}` },
+          { id: 4, label: 'comments' },
+        ]}
+      />
       <h2 className='mb-4'>Comments ({count}):</h2>
       <AddCommentForm blogId={blogId} />
       <div className='mb-4'></div>
