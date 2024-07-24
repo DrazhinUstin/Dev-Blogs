@@ -1,7 +1,7 @@
 @use '@/app/scss/mixins';
 
 .container {
-  min-height: calc(100vh - var(--navbar-height));
+  min-height: var(--min-vh-height);
   display: grid;
   grid-template-columns: auto 1fr;
 

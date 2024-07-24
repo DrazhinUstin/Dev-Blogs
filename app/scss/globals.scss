@@ -19,6 +19,8 @@
   --max-width: 1200px;
   --fluid-width: 90vw;
   --navbar-height: 5rem;
+  --footer-height: 3rem;
+  --min-vh-height: calc(100vh - var(--navbar-height) - var(--footer-height));
   --breakpoint-xs: 480px;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -165,7 +167,7 @@ code {
 .main {
   max-width: var(--max-width);
   width: var(--fluid-width);
-  min-height: calc(100vh - var(--navbar-height));
+  min-height: var(--min-vh-height);
   margin: 0 auto;
   padding: 4rem 0;
 

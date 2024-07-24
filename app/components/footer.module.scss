@@ -1,0 +1,33 @@
+@use '@/app/scss/mixins';
+
+.container {
+  height: var(--footer-height);
+  display: grid;
+  place-items: center;
+  border-top: 1px solid var(--color-gray-light);
+  font-size: var(--small-text);
+
+  &>* {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include mixins.breakpoint-down('xs') {
+      flex-direction: column;
+    }
+  }
+}
+
+.copyright {
+  display: flex;
+  align-items: center;
+  column-gap: 0.375rem;
+}
+
+.links {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  text-transform: capitalize;
+}

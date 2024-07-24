@@ -20,6 +20,10 @@
   display: flex;
   column-gap: 1rem;
 
+  a {
+    text-transform: capitalize;
+  }
+
   @include mixins.breakpoint-down(md) {
     position: fixed;
     top: var(--navbar-height);
