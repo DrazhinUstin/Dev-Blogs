@@ -2,6 +2,7 @@ import type { Prisma } from '@prisma/client';
 import { fetchUsers } from '@/app/lib/data';
 import Avatar from '@/app/components/avatar';
 import Link from 'next/link';
+import { cutString } from '@/app/lib/utils';
 import { FaUsers, FaFilePen, FaEye } from 'react-icons/fa6';
 import styles from './user-card.module.scss';
 
@@ -18,7 +19,7 @@ export default function UserCard({
       <Avatar src={image} />
       <div>
         <h4>{name}</h4>
-        <p>{profile?.bio}</p>
+        <p>{profile?.bio && cutString(profile.bio)}</p>
         <p className={styles.stats}>
           <Link href={`/users/${id}/followers`} title='followers'>
             <FaUsers /> {followersCount}

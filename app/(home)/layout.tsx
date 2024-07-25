@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className='main'>
       <div className={styles.container}>
         <div>
-          <nav>
+          <nav className='shadow-underline'>
             <NavLinks
               links={[
                 { id: 1, href: '/', label: 'top' },

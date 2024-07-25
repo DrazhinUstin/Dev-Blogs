@@ -13,3 +13,9 @@ export function generatePagination(currentPage: number, totalPages: number): Arr
   }
   return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
 }
+
+export function cutString(str: string, maxLength: number = 150) {
+  if (maxLength >= str.length) return str;
+  const ending = '...';
+  return str.slice(0, maxLength - ending.length) + ending;
+}

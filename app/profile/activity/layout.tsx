@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
       <h2 className='text-center'>Activity</h2>
-      <nav className='my-4 text-center'>
+      <nav className='my-4 text-center shadow-underline'>
         <NavLinks
           links={[
             { id: 1, href: '/profile/activity/likes', label: 'likes' },

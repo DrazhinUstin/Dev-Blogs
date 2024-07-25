@@ -81,7 +81,7 @@ export default async function Layout({
           </Suspense>
         </div>
       </header>
-      <nav className='text-center my-4'>
+      <nav className='text-center my-4 shadow-underline'>
         <NavLinks
           links={[
             { id: 1, href: `/users/${id}`, label: 'about' },

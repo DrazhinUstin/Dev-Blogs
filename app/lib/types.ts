@@ -42,13 +42,11 @@ export type CommentsFilters =
 export type ProfileFormState = {
   errorMsg?: string;
   fieldErrors?: {
-    fullName?: string[];
     gender?: string[];
-    email?: string[];
     websiteUrl?: string[];
     githubUrl?: string[];
     linkedinUrl?: string[];
-    avatar?: string[];
+    location?: string[];
     bio?: string[];
   };
 };

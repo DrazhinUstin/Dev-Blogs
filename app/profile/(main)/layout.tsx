@@ -11,10 +11,10 @@ export default async function Layout({ children }: { children: React.ReactNode }
         <Avatar src={user.image} width={100} height={100} className='m-auto' />
         <h3 className='mt'>{user.name}</h3>
       </header>
-      <nav className='text-center mb-4'>
+      <nav className='text-center mb-4 shadow-underline'>
         <NavLinks
           links={[
-            { id: 1, href: '/profile', label: 'Profile' },
+            { id: 1, href: '/profile', label: 'Main' },
             { id: 2, href: '/profile/edit', label: 'Edit' },
           ]}
         />

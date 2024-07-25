@@ -74,18 +74,28 @@ export default function UpsertProfileForm({ profile }: { profile: Profile | null
         {state.fieldErrors?.linkedinUrl && <p>{state.fieldErrors.linkedinUrl}</p>}
       </div>
       <div>
+        <label htmlFor='location'>Location:</label>
+        <input
+          type='text'
+          name='location'
+          id='location'
+          defaultValue={profile?.location || undefined}
+        />
+        {state.fieldErrors?.location && <p>{state.fieldErrors.location}</p>}
+      </div>
+      <div>
         <label htmlFor='bio'>Bio:</label>
         <textarea
           name='bio'
           id='bio'
-          cols={30}
-          rows={10}
+          rows={5}
           defaultValue={profile?.bio || undefined}
+          placeholder='Tell us a little bit about yourself'
         ></textarea>
         {state.fieldErrors?.bio && <p>{state.fieldErrors.bio}</p>}
       </div>
       {state.errorMsg && <p>{state.errorMsg}</p>}
-      <FormSubmitBtn className='btn'>submit</FormSubmitBtn>
+      <FormSubmitBtn className='btn w-100'>submit</FormSubmitBtn>
     </form>
   );
 }

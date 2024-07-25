@@ -60,6 +60,7 @@ model Profile {
   websiteUrl  String?
   githubUrl   String?
   linkedinUrl String?
+  location    String?
   bio         String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

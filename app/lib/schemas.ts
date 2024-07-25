@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { Gender } from '@prisma/client';
 
-const maxStrLength = 1000;
+const maxStrLength = 200;
 
 export const requiredString = z
   .string()
@@ -37,5 +37,6 @@ export const ProfileFormSchema = z.object({
   websiteUrl: optionalUrl,
   githubUrl: optionalUrl,
   linkedinUrl: optionalUrl,
+  location: optionalString,
   bio: optionalString,
 });

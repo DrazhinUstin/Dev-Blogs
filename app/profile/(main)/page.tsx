@@ -12,21 +12,21 @@ export default async function Page() {
     <main>
       <ul className={styles.list}>
         <li>
-          Avatar: <Avatar src={user.image} width={32} height={32} />
+          <span>Avatar:</span>
+          <Avatar src={user.image} width={32} height={32} />
         </li>
         <li>
-          Display name: <span>{user.name}</span>
+          <span>Name:</span>
+          <span>{user.name}</span>
         </li>
         <li>
-          Email: <span>{user.email}</span>
+          <span>Email:</span>
+          <span>{user.email}</span>
         </li>
       </ul>
       <Suspense fallback={<h2>LOADING PROFILE...</h2>}>
         <ProfileInfo />
       </Suspense>
-      <div className='mt-4'>
-        <SignOutForm />
-      </div>
     </main>
   );
 }

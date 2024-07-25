@@ -16,10 +16,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <nav>
           <NavLinks
             links={[
-              { id: 1, href: '/profile', label: 'profile' },
+              { id: 1, href: '/profile', label: 'me' },
               { id: 2, href: '/profile/activity/likes', label: 'activity' },
               { id: 3, href: '/profile/following', label: 'following' },
             ]}
+            style='alternative'
           />
         </nav>
       </aside>
