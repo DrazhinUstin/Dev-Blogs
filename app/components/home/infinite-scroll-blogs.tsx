@@ -8,7 +8,7 @@ import Link from 'next/link';
 import Avatar from '@/app/components/avatar';
 import Image from 'next/image';
 import { formatDateToNow } from '@/app/lib/utils';
-import { FaCalendarDays, FaThumbsUp, FaComments, FaEye } from 'react-icons/fa6';
+import { FaCalendarDays, FaThumbsUp, FaComments } from 'react-icons/fa6';
 import styles from '@/app/components/blogs/blog-card.module.scss';
 
 export default function InfiniteScrollBlogs({
@@ -40,15 +40,21 @@ export default function InfiniteScrollBlogs({
     <div>
       {blogs.map(({ user, ...blog }) => (
         <article key={blog.id} className={styles.card}>
-          <div className={styles.author}>
-            <Link href={`/users/${blog.userId}`}>
-              <Avatar src={user.image} width={24} height={24} />
-              <p>{user.name}</p>
-            </Link>
-          </div>
+          <header className={styles.card_header}>
+            <div className={styles.author}>
+              <Link href={`/users/${blog.userId}`}>
+                <Avatar src={user.image} width={24} height={24} />
+              </Link>
+              <p>
+                <Link href={`/users/${blog.userId}`}>{user.name}</Link>
+              </p>
+            </div>
+          </header>
           <div className={styles.card_content}>
             <div>
-              <h3>{blog.title}</h3>
+              <h3>
+                <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
+              </h3>
               <p className={styles.category}>{blog.categoryName}</p>
               <p>{blog.description}</p>
             </div>
@@ -69,11 +75,6 @@ export default function InfiniteScrollBlogs({
               <FaComments />
               {blog.commentsCount}
             </span>
-          </div>
-          <div className={styles.card_controls}>
-            <Link href={`/blogs/${blog.id}`} className='btn-flex'>
-              <FaEye /> Browse
-            </Link>
           </div>
         </article>
       ))}

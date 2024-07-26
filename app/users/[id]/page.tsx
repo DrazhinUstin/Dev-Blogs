@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { FaEnvelope } from 'react-icons/fa6';
 import { FaFemale, FaMale, FaCalendar } from 'react-icons/fa';
 import { FaLocationDot } from 'react-icons/fa6';
+import { formatDate } from '@/app/lib/utils';
 import styles from './page.module.scss';
 
 export default async function Page({ params: { id } }: { params: { id: string } }) {
@@ -14,7 +15,12 @@ export default async function Page({ params: { id } }: { params: { id: string } 
 
   const { email, createdAt, profile } = user;
   return (
-    <main>
+    <main className={styles.container}>
+      {profile?.bio && (
+        <div className='text-center mb-2'>
+          <p>{profile.bio}</p>
+        </div>
+      )}
       <ul className={styles.list}>
         <li>
           <span>
@@ -40,15 +46,9 @@ export default async function Page({ params: { id } }: { params: { id: string } 
           <span>
             <FaCalendar />
           </span>
-          Joined {createdAt.toLocaleDateString()}
+          Joined {formatDate(createdAt)}
         </li>
       </ul>
-      {profile?.bio && (
-        <div className='mt-2'>
-          <h4 className='mb'>Bio:</h4>
-          <p>{profile.bio}</p>
-        </div>
-      )}
     </main>
   );
 }

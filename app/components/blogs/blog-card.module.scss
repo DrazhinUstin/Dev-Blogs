@@ -1,10 +1,16 @@
 .card {
-  padding: 0.5rem;
-  border: 1px solid var(--color-gray-light);
-  border-radius: var(--border-radius);
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-gray-light);
 
   &:not(:last-of-type) {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
   }
 
   &_content {
@@ -23,7 +29,7 @@
     display: flex;
     flex-flow: row wrap;
     gap: 0.375rem 0.875rem;
-    margin: 0.5rem 0;
+    margin-top: 0.5rem;
     color: var(--color-gray-dark);
     font-size: var(--small-text);
 
@@ -34,23 +40,38 @@
     }
   }
 
-  &_controls {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-end;
-    gap: 0.375rem;
+  &_menu {
+    position: relative;
+
+    &>button {
+      padding: 0;
+      border: 0;
+      background-color: transparent;
+      font-size: 1rem;
+    }
+
+    ul {
+      position: absolute;
+      top: 1.5rem;
+      right: 0;
+      width: max-content;
+      padding: 0.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      background-color: var(--color-white);
+
+      li:not(:last-child) {
+        margin-bottom: 0.5rem;
+      }
+    }
   }
 }
 
 .author {
-  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  column-gap: 0.375rem;
   font-size: var(--small-text);
-
-  a {
-    display: flex;
-    align-items: center;
-    column-gap: 0.375rem;
-  }
 }
 
 .category {

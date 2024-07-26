@@ -1,5 +1,13 @@
 import { formatDistanceToNow } from 'date-fns';
 
+export function formatDate(date: string | Date, locale: string = 'en-US') {
+  return new Intl.DateTimeFormat(locale, {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  }).format(typeof date === 'string' ? new Date(date) : date);
+}
+
 export function formatDateToNow(date: Date | string | number) {
   return formatDistanceToNow(date, { addSuffix: true, includeSeconds: true });
 }

@@ -1,10 +1,11 @@
 import { auth } from '@/auth';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaCalendarDays, FaThumbsUp, FaComments, FaPen, FaEye } from 'react-icons/fa6';
+import { FaCalendarDays, FaThumbsUp, FaComments } from 'react-icons/fa6';
 import { fetchBlogs } from '@/app/lib/data';
 import { formatDateToNow } from '@/app/lib/utils';
 import Avatar from '@/app/components/avatar';
+import BlogCardMenu from '@/app/components/blogs/blog-card-menu';
 import DeleteBlogForm from '@/app/components/blogs/delete-blog-form';
 import type { Prisma } from '@prisma/client';
 import styles from './blog-card.module.scss';
@@ -24,15 +25,26 @@ export default async function BlogCard({
   const currentUser = (await auth())?.user;
   return (
     <article className={styles.card}>
-      <div className={styles.author}>
-        <Link href={`/users/${userId}`}>
-          <Avatar src={user.image} width={24} height={24} />
-          <p>{user.name}</p>
-        </Link>
-      </div>
+      <header className={styles.card_header}>
+        <div className={styles.author}>
+          <Link href={`/users/${userId}`}>
+            <Avatar src={user.image} width={24} height={24} />
+          </Link>
+          <p>
+            <Link href={`/users/${userId}`}>{user.name}</Link>
+          </p>
+        </div>
+        {userId === currentUser?.id && (
+          <BlogCardMenu blogId={id}>
+            <DeleteBlogForm id={id} imageUrl={imageUrl} />
+          </BlogCardMenu>
+        )}
+      </header>
       <div className={styles.card_content}>
         <div>
-          <h3>{title}</h3>
+          <h3>
+            <Link href={`/blogs/${id}`}>{title}</Link>
+          </h3>
           <p className={styles.category}>{categoryName}</p>
           <p>{description}</p>
         </div>
@@ -51,20 +63,6 @@ export default async function BlogCard({
           <FaComments />
           {commentsCount}
         </span>
-      </div>
-      <div className={styles.card_controls}>
-        {userId === currentUser?.id && (
-          <>
-            <Link href={`/dashboard/blogs/${id}/edit`} className='btn-flex'>
-              <FaPen />
-              edit
-            </Link>
-            <DeleteBlogForm id={id} imageUrl={imageUrl} />
-          </>
-        )}
-        <Link href={`/blogs/${id}`} className='btn-flex'>
-          <FaEye /> Browse
-        </Link>
       </div>
     </article>
   );

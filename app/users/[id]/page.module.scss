@@ -1,13 +1,20 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .list {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  gap: 1rem;
+  width: max-content;
+  margin: 0 auto;
 
   li {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
     column-gap: 0.5rem;
+
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
   }
 }

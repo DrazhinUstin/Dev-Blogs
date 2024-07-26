@@ -46,7 +46,7 @@ export default function Filters() {
           value={'true' satisfies UserFilters['withBio']}
           defaultChecked={!!searchParams.get('withBio')}
         />
-        <label htmlFor='withBio'>With bio:</label>
+        <label htmlFor='withBio'>Only with bio:</label>
       </div>
       <FormSubmitBtn className='btn w-100'>apply</FormSubmitBtn>
     </form>
