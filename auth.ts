@@ -3,7 +3,6 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import { prisma } from '@/client';
 import GitHub from 'next-auth/providers/github';
 import Google from 'next-auth/providers/google';
-import { fetchUser } from '@/app/lib/data';
 import type { Provider } from 'next-auth/providers';
 import type { Role } from '@prisma/client';
 
@@ -12,7 +11,7 @@ const protectedRoutes = ['/profile', '/dashboard', '/following'];
 export const providers: Provider[] = [
   GitHub({
     async profile(profile) {
-      const user = await fetchUser(profile.email as string);
+      const user = await prisma.user.findUnique({ where: { email: profile.email as string } });
       const role: Role = user?.role || 'USER';
       return {
         id: profile.node_id,
@@ -25,7 +24,7 @@ export const providers: Provider[] = [
   }),
   Google({
     async profile(profile) {
-      const user = await fetchUser(profile.email as string);
+      const user = await prisma.user.findUnique({ where: { email: profile.email as string } });
       const role: Role = user?.role || 'USER';
       return {
         id: profile.sub,

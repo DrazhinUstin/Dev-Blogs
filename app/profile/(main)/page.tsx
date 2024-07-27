@@ -3,7 +3,6 @@ import type { User } from 'next-auth';
 import Avatar from '@/app/components/avatar';
 import { Suspense } from 'react';
 import { ProfileInfo } from '@/app/components/profile/profile-info';
-import SignOutForm from '@/app/components/auth/sign-out-form';
 import styles from './page.module.scss';
 
 export default async function Page() {

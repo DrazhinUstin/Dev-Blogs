@@ -3,17 +3,7 @@ import { cache } from 'react';
 import type { Prisma } from '@prisma/client';
 import type { BlogFilters, CommentsFilters, UserFilters } from '@/app/lib/types';
 
-export async function fetchUser(email: string) {
-  try {
-    const user = await prisma.user.findUnique({ where: { email } });
-    return user;
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw Error('Failed to fetch user');
-  }
-}
-
-export async function fetchUserById(id: string) {
+export const fetchUserById = cache(async (id: string) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id },
@@ -28,7 +18,7 @@ export async function fetchUserById(id: string) {
     console.error('Database Error:', error);
     throw Error('Failed to fetch user');
   }
-}
+});
 
 export async function fetchProfile(userId: string) {
   try {
@@ -201,7 +191,7 @@ export async function fetchBlogsTotalPages(filters: BlogFilters) {
   }
 }
 
-export async function fetchBlogById(id: string) {
+export const fetchBlogById = cache(async (id: string) => {
   try {
     const blog = await prisma.blog.findUnique({
       where: { id },
@@ -219,7 +209,7 @@ export async function fetchBlogById(id: string) {
     console.error('Database Error:', error);
     throw Error('Failed to fetch blog');
   }
-}
+});
 
 export async function fetchUserLikedBlogs(
   userId: string,
