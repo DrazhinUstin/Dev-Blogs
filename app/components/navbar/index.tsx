@@ -17,7 +17,9 @@ export default async function Navbar() {
             <SignOutForm />
           </UserMenu>
         ) : (
-          <Link href='/auth/login'>sign in</Link>
+          <Link href='/auth/login' className='btn'>
+            sign in
+          </Link>
         )}
       </div>
     </nav>

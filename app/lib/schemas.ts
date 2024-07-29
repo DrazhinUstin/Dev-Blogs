@@ -28,6 +28,7 @@ export const BlogFormSchema = z.object({
   title: requiredString,
   categoryName: requiredString,
   description: optionalString,
+  readingTime: z.coerce.number().gte(1),
   image: ImageSchema,
   content: z.string().min(1, { message: 'Required' }),
 });

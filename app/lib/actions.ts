@@ -249,6 +249,7 @@ export async function fetchBlogsForInfiniteScroll({
         categoryName: true,
         title: true,
         description: true,
+        readingTime: true,
         imageUrl: true,
         createdAt: true,
         user: {

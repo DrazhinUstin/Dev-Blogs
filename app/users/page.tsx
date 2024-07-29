@@ -8,6 +8,11 @@ import UserList from '@/app/components/users/user-list';
 import Pagination from '@/app/components/pagination';
 import type { UsersPageSearchParams } from '@/app/lib/types';
 import styles from './page.module.scss';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Authors',
+};
 
 interface Props {
   searchParams: UsersPageSearchParams;

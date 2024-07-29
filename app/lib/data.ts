@@ -116,6 +116,7 @@ export async function fetchBlogs(
         categoryName: true,
         title: true,
         description: true,
+        readingTime: true,
         imageUrl: true,
         createdAt: true,
         user: {

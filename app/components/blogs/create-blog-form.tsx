@@ -33,6 +33,11 @@ export default function CreateBlogForm({ categories }: { categories: Category[] 
         {state.fieldErrors?.description && <p>{state.fieldErrors.description}</p>}
       </div>
       <div>
+        <label htmlFor='readingTime'>approximate reading time (in minutes):</label>
+        <input type='number' name='readingTime' id='readingTime' min={1} step={1} />
+        {state.fieldErrors?.readingTime && <p>{state.fieldErrors.readingTime}</p>}
+      </div>
+      <div>
         <label htmlFor='image'>Preview image:</label>
         <input type='file' name='image' id='image' accept='image/*' />
         {state.fieldErrors?.image && <p>{state.fieldErrors.image}</p>}

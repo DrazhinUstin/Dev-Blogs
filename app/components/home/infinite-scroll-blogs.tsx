@@ -8,7 +8,7 @@ import Link from 'next/link';
 import Avatar from '@/app/components/avatar';
 import Image from 'next/image';
 import { formatDateToNow } from '@/app/lib/utils';
-import { FaCalendarDays, FaThumbsUp, FaComments } from 'react-icons/fa6';
+import { FaCalendarDays, FaClock, FaThumbsUp, FaComments } from 'react-icons/fa6';
 import styles from '@/app/components/blogs/blog-card.module.scss';
 
 export default function InfiniteScrollBlogs({
@@ -66,6 +66,10 @@ export default function InfiniteScrollBlogs({
             <span>
               <FaCalendarDays />
               {formatDateToNow(blog.createdAt)}
+            </span>
+            <span>
+              <FaClock />
+              {blog.readingTime} min read
             </span>
             <span>
               <FaThumbsUp />

@@ -8,6 +8,11 @@ import UserList from '@/app/components/users/user-list';
 import Pagination from '@/app/components/pagination';
 import type { UserFilters, UsersPageSearchParams } from '@/app/lib/types';
 import styles from '@/app/users/page.module.scss';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Followers',
+};
 
 interface Props {
   searchParams: UsersPageSearchParams;

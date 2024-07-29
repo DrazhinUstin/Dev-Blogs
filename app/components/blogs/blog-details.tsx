@@ -13,6 +13,7 @@ export default function BlogDetails({
   id,
   userId,
   title,
+  readingTime,
   imageUrl,
   content,
   createdAt,
@@ -30,7 +31,9 @@ export default function BlogDetails({
           <p>
             <Link href={`/users/${userId}`}>{user.name}</Link>
           </p>
-          <p>Posted {formatDateToNow(createdAt)}</p>
+          <p>
+            {readingTime} min read · Posted {formatDateToNow(createdAt)}
+          </p>
         </div>
       </div>
       {imageUrl && (

@@ -1,7 +1,7 @@
 import { auth } from '@/auth';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaCalendarDays, FaThumbsUp, FaComments } from 'react-icons/fa6';
+import { FaCalendarDays, FaClock, FaThumbsUp, FaComments } from 'react-icons/fa6';
 import { fetchBlogs } from '@/app/lib/data';
 import { formatDateToNow } from '@/app/lib/utils';
 import Avatar from '@/app/components/avatar';
@@ -16,6 +16,7 @@ export default async function BlogCard({
   title,
   categoryName,
   description,
+  readingTime,
   imageUrl,
   createdAt,
   user,
@@ -54,6 +55,10 @@ export default async function BlogCard({
         <span>
           <FaCalendarDays />
           {formatDateToNow(createdAt)}
+        </span>
+        <span>
+          <FaClock />
+          {readingTime} min read
         </span>
         <span>
           <FaThumbsUp />

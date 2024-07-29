@@ -16,9 +16,13 @@ export default function UserCard({
 }: Prisma.PromiseReturnType<typeof fetchUsers>[0]) {
   return (
     <article className={styles.card}>
-      <Avatar src={image} />
+      <Link href={`/users/${id}`}>
+        <Avatar src={image} />
+      </Link>
       <div>
-        <h4>{name}</h4>
+        <h4>
+          <Link href={`/users/${id}`}>{name}</Link>
+        </h4>
         <p>{profile?.bio && cutString(profile.bio)}</p>
         <p className={styles.stats}>
           <Link href={`/users/${id}/followers`} title='followers'>
@@ -29,9 +33,6 @@ export default function UserCard({
           </Link>
         </p>
       </div>
-      <Link href={`/users/${id}`} className='btn-flex'>
-        <FaEye /> view
-      </Link>
     </article>
   );
 }

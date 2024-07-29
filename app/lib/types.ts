@@ -12,6 +12,7 @@ export type BlogFormState = {
     title?: string[];
     categoryName?: string[];
     description?: string[];
+    readingTime?: string[];
     image?: string[];
     content?: string[];
   };

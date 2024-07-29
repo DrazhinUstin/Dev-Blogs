@@ -9,7 +9,7 @@ import Counter from './counter';
 export default function Editor({
   initialContent,
   handleUpdate,
-  charactersLimit: limit = 1000,
+  charactersLimit: limit = 3000,
   label,
 }: {
   initialContent?: Content;
