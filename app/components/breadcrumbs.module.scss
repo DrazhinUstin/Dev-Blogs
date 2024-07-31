@@ -8,5 +8,17 @@
     display: flex;
     align-items: center;
     column-gap: 0.5rem;
+
+    a {
+      color: var(--color-primary);
+
+      &~span {
+        color: var(--color-primary);
+      }
+    }
+
+    span {
+      color: var(--color-gray-dark);
+    }
   }
 }

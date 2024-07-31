@@ -27,7 +27,7 @@ function ReplyForm({ commentId }: { commentId: string }) {
   return (
     <form action={dispatch} className='form mt-2'>
       <textarea name='text' placeholder='Start writing your reply...' rows={3} autoFocus></textarea>
-      {error && <p>{error}</p>}
+      {error && <p className='form-error'>{error}</p>}
       <div className='text-end'>
         <FormSubmitBtn className='btn text-sm'>submit</FormSubmitBtn>
       </div>

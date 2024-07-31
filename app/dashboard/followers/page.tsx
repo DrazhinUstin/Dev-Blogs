@@ -4,6 +4,7 @@ import { usersOrderOptions } from '@/app/lib/order-options';
 import Filters from '@/app/components/users/filters';
 import Order from '@/app/components/order';
 import { Suspense } from 'react';
+import Spinner from '@/app/components/spinner';
 import UserList from '@/app/components/users/user-list';
 import Pagination from '@/app/components/pagination';
 import type { UserFilters, UsersPageSearchParams } from '@/app/lib/types';
@@ -34,7 +35,7 @@ export default async function Page({ searchParams }: Props) {
         </aside>
         <div>
           <Order options={usersOrderOptions} />
-          <Suspense key={JSON.stringify(searchParams)} fallback={<h2>LOADING...</h2>}>
+          <Suspense key={JSON.stringify(searchParams)} fallback={<Spinner />}>
             <UserList filters={filters} orderBy={parsedOrderBy} page={currentPage} />
           </Suspense>
           <Pagination currentPage={currentPage} totalPages={totalPages} />

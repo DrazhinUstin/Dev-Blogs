@@ -6,6 +6,7 @@ import { fetchBlogsForInfiniteScroll as fetchBlogs } from '@/app/lib/actions';
 import type { Prisma } from '@prisma/client';
 import Link from 'next/link';
 import Avatar from '@/app/components/avatar';
+import Spinner from '@/app/components/spinner';
 import Image from 'next/image';
 import { formatDateToNow } from '@/app/lib/utils';
 import { FaCalendarDays, FaClock, FaThumbsUp, FaComments } from 'react-icons/fa6';
@@ -83,8 +84,8 @@ export default function InfiniteScrollBlogs({
         </article>
       ))}
       {showLoader && (
-        <div className='mt-4 text-center' ref={ref}>
-          <h2>LOADING BLOGS...</h2>
+        <div ref={ref}>
+          <Spinner />
         </div>
       )}
       {!showLoader && blogs.length === 0 && <p>No blogs to display...</p>}

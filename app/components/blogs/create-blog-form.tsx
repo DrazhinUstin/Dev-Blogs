@@ -20,33 +20,39 @@ export default function CreateBlogForm({ categories }: { categories: Category[] 
             </option>
           ))}
         </select>
-        {state.fieldErrors?.categoryName && <p>{state.fieldErrors.categoryName}</p>}
+        {state.fieldErrors?.categoryName && (
+          <p className='form-error'>{state.fieldErrors.categoryName}</p>
+        )}
       </div>
       <div>
         <label htmlFor='title'>title:</label>
         <input type='text' name='title' id='title' />
-        {state.fieldErrors?.title && <p>{state.fieldErrors.title}</p>}
+        {state.fieldErrors?.title && <p className='form-error'>{state.fieldErrors.title}</p>}
       </div>
       <div>
         <label htmlFor='description'>description:</label>
         <textarea name='description' id='description' cols={30} rows={10}></textarea>
-        {state.fieldErrors?.description && <p>{state.fieldErrors.description}</p>}
+        {state.fieldErrors?.description && (
+          <p className='form-error'>{state.fieldErrors.description}</p>
+        )}
       </div>
       <div>
         <label htmlFor='readingTime'>approximate reading time (in minutes):</label>
         <input type='number' name='readingTime' id='readingTime' min={1} step={1} />
-        {state.fieldErrors?.readingTime && <p>{state.fieldErrors.readingTime}</p>}
+        {state.fieldErrors?.readingTime && (
+          <p className='form-error'>{state.fieldErrors.readingTime}</p>
+        )}
       </div>
       <div>
         <label htmlFor='image'>Preview image:</label>
         <input type='file' name='image' id='image' accept='image/*' />
-        {state.fieldErrors?.image && <p>{state.fieldErrors.image}</p>}
+        {state.fieldErrors?.image && <p className='form-error'>{state.fieldErrors.image}</p>}
       </div>
       <div>
         <WYSIWYGFormField name='content' label='content:' />
-        {state.fieldErrors?.content && <p>{state.fieldErrors.content}</p>}
+        {state.fieldErrors?.content && <p className='form-error'>{state.fieldErrors.content}</p>}
       </div>
-      {state.errorMsg && <p>{state.errorMsg}</p>}
+      {state.errorMsg && <p className='form-error'>{state.errorMsg}</p>}
       <FormSubmitBtn className='btn w-100'>create</FormSubmitBtn>
     </form>
   );

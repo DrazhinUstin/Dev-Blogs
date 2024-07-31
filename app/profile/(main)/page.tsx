@@ -2,6 +2,7 @@ import { auth } from '@/auth';
 import type { User } from 'next-auth';
 import Avatar from '@/app/components/avatar';
 import { Suspense } from 'react';
+import Spinner from '@/app/components/spinner';
 import { ProfileInfo } from '@/app/components/profile/profile-info';
 import styles from './page.module.scss';
 
@@ -23,7 +24,7 @@ export default async function Page() {
           <span>{user.email}</span>
         </li>
       </ul>
-      <Suspense fallback={<h2>LOADING PROFILE...</h2>}>
+      <Suspense fallback={<Spinner />}>
         <ProfileInfo />
       </Suspense>
     </main>

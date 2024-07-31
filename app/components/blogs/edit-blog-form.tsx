@@ -21,12 +21,14 @@ export default function EditBlogForm({ blog, categories }: { blog: Blog; categor
             </option>
           ))}
         </select>
-        {state.fieldErrors?.categoryName && <p>{state.fieldErrors.categoryName}</p>}
+        {state.fieldErrors?.categoryName && (
+          <p className='form-error'>{state.fieldErrors.categoryName}</p>
+        )}
       </div>
       <div>
         <label htmlFor='title'>Title:</label>
         <input type='text' name='title' id='title' defaultValue={blog.title} />
-        {state.fieldErrors?.title && <p>{state.fieldErrors.title}</p>}
+        {state.fieldErrors?.title && <p className='form-error'>{state.fieldErrors.title}</p>}
       </div>
       <div>
         <label htmlFor='description'>Description:</label>
@@ -37,7 +39,9 @@ export default function EditBlogForm({ blog, categories }: { blog: Blog; categor
           rows={10}
           defaultValue={blog.description || undefined}
         ></textarea>
-        {state.fieldErrors?.description && <p>{state.fieldErrors.description}</p>}
+        {state.fieldErrors?.description && (
+          <p className='form-error'>{state.fieldErrors.description}</p>
+        )}
       </div>
       <div>
         <label htmlFor='readingTime'>approximate reading time (in minutes):</label>
@@ -49,18 +53,20 @@ export default function EditBlogForm({ blog, categories }: { blog: Blog; categor
           step={1}
           defaultValue={blog.readingTime}
         />
-        {state.fieldErrors?.readingTime && <p>{state.fieldErrors.readingTime}</p>}
+        {state.fieldErrors?.readingTime && (
+          <p className='form-error'>{state.fieldErrors.readingTime}</p>
+        )}
       </div>
       <div>
         <label htmlFor='image'>Preview image:</label>
         <input type='file' name='image' id='image' accept='image/*' />
-        {state.fieldErrors?.image && <p>{state.fieldErrors.image}</p>}
+        {state.fieldErrors?.image && <p className='form-error'>{state.fieldErrors.image}</p>}
       </div>
       <div>
         <WYSIWYGFormField name='content' label='content:' initialValue={blog.content} />
-        {state.fieldErrors?.content && <p>{state.fieldErrors.content}</p>}
+        {state.fieldErrors?.content && <p className='form-error'>{state.fieldErrors.content}</p>}
       </div>
-      {state.errorMsg && <p>{state.errorMsg}</p>}
+      {state.errorMsg && <p className='form-error'>{state.errorMsg}</p>}
       <FormSubmitBtn className='btn w-100'>edit</FormSubmitBtn>
     </form>
   );

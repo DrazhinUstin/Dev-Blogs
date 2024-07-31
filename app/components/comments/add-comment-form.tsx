@@ -17,7 +17,7 @@ export default function AddCommentForm({ blogId }: { blogId: string }) {
           placeholder='Start writing a comment...'
           rows={3}
         ></textarea>
-        {error && <p>{error}</p>}
+        {error && <p className='form-error'>{error}</p>}
       </div>
       <div className='text-end'>
         <FormSubmitBtn className='btn-flex'>

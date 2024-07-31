@@ -57,7 +57,7 @@ function EditForm({
         rows={3}
         autoFocus
       />
-      {error && <p>{error}</p>}
+      {error && <p className='form-error'>{error}</p>}
       <div className='text-end'>
         <FormSubmitBtn className='btn text-sm'>submit</FormSubmitBtn>
       </div>

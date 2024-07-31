@@ -7,6 +7,7 @@ import AddCommentForm from '@/app/components/comments/add-comment-form';
 import Order from '@/app/components/order';
 import CommentList from '@/app/components/comments/comment-list';
 import Pagination from '@/app/components/pagination';
+import Spinner from '@/app/components/spinner';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -43,7 +44,7 @@ export default async function Page({ params: { id: blogId }, searchParams }: Pro
       <AddCommentForm blogId={blogId} />
       <div className='mb-4'></div>
       <Order options={commentsOrderOptions} />
-      <Suspense key={JSON.stringify(searchParams)} fallback={<h2>LOADING COMMENTS...</h2>}>
+      <Suspense key={JSON.stringify(searchParams)} fallback={<Spinner />}>
         <CommentList filters={{ blogId }} orderBy={parsedOrderBy} page={currentPage} />
       </Suspense>
       <Pagination currentPage={currentPage} totalPages={totalPages} />

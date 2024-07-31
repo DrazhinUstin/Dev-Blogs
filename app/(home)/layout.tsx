@@ -1,5 +1,6 @@
 import NavLinks from '@/app/components/nav-links';
 import { Suspense } from 'react';
+import Spinner from '@/app/components/spinner';
 import Categories from '@/app/components/home/categories';
 import styles from './layout.module.scss';
 
@@ -20,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className='mt-4'>{children}</div>
         </div>
         <aside>
-          <Suspense fallback={<h2>Loading categories...</h2>}>
+          <Suspense fallback={<Spinner />}>
             <Categories />
           </Suspense>
         </aside>

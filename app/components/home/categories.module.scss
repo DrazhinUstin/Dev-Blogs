@@ -4,7 +4,7 @@
 }
 
 .card {
-  color: var(--color-black);
+  color: var(--text-color);
   font-size: var(--small-text);
 
   &>*:first-child {
@@ -12,5 +12,13 @@
     grid-template-columns: auto 1fr;
     align-items: center;
     column-gap: 0.25rem;
+  }
+
+  p {
+    color: var(--color-gray-dark);
+  }
+
+  svg {
+    color: var(--color-primary);
   }
 }

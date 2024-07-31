@@ -1,14 +1,15 @@
 import { Suspense } from 'react';
 import Overview from '@/app/components/dashboard/overview';
 import Charts from '@/app/components/dashboard/charts';
+import Spinner from '@/app/components/spinner';
 
 export default function Page() {
   return (
     <main>
-      <Suspense fallback={<h2>Loading overview...</h2>}>
+      <Suspense fallback={<Spinner />}>
         <Overview />
       </Suspense>
-      <Suspense fallback={<h2>Loading charts...</h2>}>
+      <Suspense fallback={<Spinner />}>
         <Charts />
       </Suspense>
     </main>

@@ -41,7 +41,7 @@ export default function UpsertProfileForm({ profile }: { profile: Profile | null
           />
           <label htmlFor='female'>Female</label>
         </div>
-        {state.fieldErrors?.gender && <p>{state.fieldErrors.gender}</p>}
+        {state.fieldErrors?.gender && <p className='form-error'>{state.fieldErrors.gender}</p>}
       </div>
       <div>
         <label htmlFor='websiteUrl'>Website url:</label>
@@ -51,7 +51,9 @@ export default function UpsertProfileForm({ profile }: { profile: Profile | null
           id='websiteUrl'
           defaultValue={profile?.websiteUrl || undefined}
         />
-        {state.fieldErrors?.websiteUrl && <p>{state.fieldErrors.websiteUrl}</p>}
+        {state.fieldErrors?.websiteUrl && (
+          <p className='form-error'>{state.fieldErrors.websiteUrl}</p>
+        )}
       </div>
       <div>
         <label htmlFor='githubUrl'>Github url:</label>
@@ -61,7 +63,9 @@ export default function UpsertProfileForm({ profile }: { profile: Profile | null
           id='githubUrl'
           defaultValue={profile?.githubUrl || undefined}
         />
-        {state.fieldErrors?.githubUrl && <p>{state.fieldErrors.githubUrl}</p>}
+        {state.fieldErrors?.githubUrl && (
+          <p className='form-error'>{state.fieldErrors.githubUrl}</p>
+        )}
       </div>
       <div>
         <label htmlFor='linkedinUrl'>Linkedin url:</label>
@@ -71,7 +75,9 @@ export default function UpsertProfileForm({ profile }: { profile: Profile | null
           id='linkedinUrl'
           defaultValue={profile?.linkedinUrl || undefined}
         />
-        {state.fieldErrors?.linkedinUrl && <p>{state.fieldErrors.linkedinUrl}</p>}
+        {state.fieldErrors?.linkedinUrl && (
+          <p className='form-error'>{state.fieldErrors.linkedinUrl}</p>
+        )}
       </div>
       <div>
         <label htmlFor='location'>Location:</label>
@@ -81,7 +87,7 @@ export default function UpsertProfileForm({ profile }: { profile: Profile | null
           id='location'
           defaultValue={profile?.location || undefined}
         />
-        {state.fieldErrors?.location && <p>{state.fieldErrors.location}</p>}
+        {state.fieldErrors?.location && <p className='form-error'>{state.fieldErrors.location}</p>}
       </div>
       <div>
         <label htmlFor='bio'>Bio:</label>
@@ -92,9 +98,9 @@ export default function UpsertProfileForm({ profile }: { profile: Profile | null
           defaultValue={profile?.bio || undefined}
           placeholder='Tell us a little bit about yourself'
         ></textarea>
-        {state.fieldErrors?.bio && <p>{state.fieldErrors.bio}</p>}
+        {state.fieldErrors?.bio && <p className='form-error'>{state.fieldErrors.bio}</p>}
       </div>
-      {state.errorMsg && <p>{state.errorMsg}</p>}
+      {state.errorMsg && <p className='form-error'>{state.errorMsg}</p>}
       <FormSubmitBtn className='btn w-100'>submit</FormSubmitBtn>
     </form>
   );

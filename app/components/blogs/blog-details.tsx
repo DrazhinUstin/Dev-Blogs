@@ -29,9 +29,11 @@ export default function BlogDetails({
         </Link>
         <div>
           <p>
-            <Link href={`/users/${userId}`}>{user.name}</Link>
+            <Link href={`/users/${userId}`} className='clr-primary'>
+              {user.name}
+            </Link>
           </p>
-          <p>
+          <p className='clr-gray-dark'>
             {readingTime} min read · Posted {formatDateToNow(createdAt)}
           </p>
         </div>
@@ -50,7 +52,7 @@ export default function BlogDetails({
         >
           <BlogLikes blogId={id} />
         </Suspense>
-        <Link href={`/blogs/${id}/comments`} className='btn-flex'>
+        <Link href={`/blogs/${id}/comments`} className='btn-flex bg-clr-black'>
           <FaRegComments />
           {commentsCount}
         </Link>

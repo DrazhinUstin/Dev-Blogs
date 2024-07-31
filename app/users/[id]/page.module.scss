@@ -16,5 +16,9 @@
     &:not(:last-child) {
       margin-bottom: 0.5rem;
     }
+
+    svg {
+      color: var(--color-gray-dark);
+    }
   }
 }

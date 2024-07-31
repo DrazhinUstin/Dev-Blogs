@@ -28,7 +28,9 @@ export default async function CommentCard({
     <article id={id} className={styles.card}>
       {blog && (
         <h4>
-          <Link href={`/blogs/${blogId}`}>{blog.title}</Link>
+          <Link href={`/blogs/${blogId}`} className='clr-black'>
+            {blog.title}
+          </Link>
         </h4>
       )}
       <div className={styles.author}>
@@ -37,7 +39,9 @@ export default async function CommentCard({
         </Link>
         <div>
           <p>
-            <Link href={`/users/${userId}`}>{name}</Link>
+            <Link href={`/users/${userId}`} className='clr-primary'>
+              {name}
+            </Link>
           </p>
           <p className='clr-gray-dark'>{formatDateToNow(createdAt)}</p>
         </div>

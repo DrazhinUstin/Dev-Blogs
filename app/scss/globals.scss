@@ -5,13 +5,11 @@
   --color-rgb-white: 255, 255, 255;
   --color-gray-light: #ebebeb;
   --color-gray: #ccc;
-  --color-gray-dark: #808080;
-  --color-red-light: #f64e4e;
+  --color-gray-dark: #6b6b6b;
   --color-red: #e92020;
-  --color-red-dark: #c01717;
-  --color-primary: var(--color-black);
-  --color-primary-2: var(--color-black);
-  --color-primary-3: var(--color-black);
+  --color-green: #61b57b;
+  --color-blue: #0a66c2;
+  --color-primary: var(--color-green);
   --background-color: var(--color-white);
   --text-color: var(--color-black);
   --letter-spacing: 1px;
@@ -112,7 +110,7 @@ input[type='checkbox'],
 input[type="radio"] {
   width: 1rem;
   height: 1rem;
-  accent-color: var(--color-primary-2);
+  accent-color: var(--color-primary);
   margin: 0;
 }
 
@@ -259,6 +257,10 @@ code {
   textarea {
     width: 100%;
   }
+
+  &-error {
+    color: var(--color-red);
+  }
 }
 
 .btn {
@@ -275,7 +277,7 @@ code {
   transition: var(--transition);
 
   &:hover {
-    filter: brightness(125%);
+    filter: brightness(120%);
   }
 
   &:disabled {
@@ -472,6 +474,9 @@ $colors: (
   "black": var(--color-black),
   "white": var(--color-white),
   "red": var(--color-red),
+  "green": var(--color-green),
+  "blue": var(--color-blue),
+  "gray-light": var(--color-gray-light),
   "gray": var(--color-gray),
   "gray-dark": var(--color-gray-dark),
 );

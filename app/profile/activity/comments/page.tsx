@@ -3,6 +3,7 @@ import { fetchBlogCommentsTotalPages } from '@/app/lib/data';
 import { auth } from '@/auth';
 import Order from '@/app/components/order';
 import { Suspense } from 'react';
+import Spinner from '@/app/components/spinner';
 import CommentList from '@/app/components/comments/comment-list';
 import Pagination from '@/app/components/pagination';
 import type { Metadata } from 'next';
@@ -24,7 +25,7 @@ export default async function Page({ searchParams }: Props) {
   return (
     <main>
       <Order options={commentsOrderOptions} />
-      <Suspense key={JSON.stringify(searchParams)} fallback={<h2>LOADING...</h2>}>
+      <Suspense key={JSON.stringify(searchParams)} fallback={<Spinner />}>
         <CommentList filters={{ userId }} orderBy={parsedOrderBy} page={currentPage} />
       </Suspense>
       <Pagination currentPage={currentPage} totalPages={totalPages} />

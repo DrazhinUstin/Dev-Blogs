@@ -31,17 +31,17 @@ export async function ProfileInfo() {
             <span className={styles.socials}>
               {websiteUrl && (
                 <Link href={websiteUrl}>
-                  <FaGlobe />
+                  <FaGlobe className='clr-green' />
                 </Link>
               )}
               {githubUrl && (
                 <Link href={githubUrl}>
-                  <FaGithub />
+                  <FaGithub className='clr-black' />
                 </Link>
               )}
               {linkedinUrl && (
                 <Link href={linkedinUrl}>
-                  <FaLinkedin />
+                  <FaLinkedin className='clr-blue' />
                 </Link>
               )}
             </span>

@@ -6,6 +6,7 @@ import Order from '@/app/components/order';
 import { blogsOrderOptions } from '@/app/lib/order-options';
 import BlogList from '@/app/components/blogs/blog-list';
 import Pagination from '@/app/components/pagination';
+import Spinner from '@/app/components/spinner';
 import styles from '@/app/blogs/page.module.scss';
 import type { BlogsPageSearchParams } from '@/app/lib/types';
 import type { Metadata } from 'next';
@@ -37,7 +38,7 @@ export default async function Page({ searchParams }: Props) {
         </aside>
         <div>
           <Order options={blogsOrderOptions} />
-          <Suspense key={JSON.stringify(searchParams)} fallback={<h2>LOADING...</h2>}>
+          <Suspense key={JSON.stringify(searchParams)} fallback={<Spinner />}>
             <BlogList filters={filters} orderBy={parsedOrderBy} page={currentPage} />
           </Suspense>
           <Pagination currentPage={currentPage} totalPages={totalPages} />

@@ -56,17 +56,17 @@ export default async function Layout({
           <p className={styles.socials}>
             {profile?.websiteUrl && (
               <Link href={profile.websiteUrl}>
-                <FaGlobe />
+                <FaGlobe className='clr-green' />
               </Link>
             )}
             {profile?.githubUrl && (
               <Link href={profile.githubUrl}>
-                <FaGithub />
+                <FaGithub className='clr-black' />
               </Link>
             )}
             {profile?.linkedinUrl && (
               <Link href={profile.linkedinUrl}>
-                <FaLinkedin />
+                <FaLinkedin className='clr-blue' />
               </Link>
             )}
           </p>

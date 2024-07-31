@@ -5,6 +5,7 @@ import Order from '@/app/components/order';
 import { usersOnBlogsOrderOptions } from '@/app/lib/order-options';
 import Pagination from '@/app/components/pagination';
 import BlogCard from '@/app/components/blogs/blog-card';
+import Spinner from '@/app/components/spinner';
 import type { Prisma } from '@prisma/client';
 import type { Metadata } from 'next';
 
@@ -26,7 +27,7 @@ export default async function Page({ searchParams }: Props) {
     <main>
       <div>
         <Order options={usersOnBlogsOrderOptions} />
-        <Suspense key={JSON.stringify(searchParams)} fallback={<h2>LOADING...</h2>}>
+        <Suspense key={JSON.stringify(searchParams)} fallback={<Spinner />}>
           <List userId={currentUser?.id as string} orderBy={parsedOrderBy} page={currentPage} />
         </Suspense>
         <Pagination currentPage={currentPage} totalPages={totalPages} />
