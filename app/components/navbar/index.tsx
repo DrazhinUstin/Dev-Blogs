@@ -1,5 +1,6 @@
 import { auth } from '@/auth';
 import Link from 'next/link';
+import Logo from '@/app/components/logo';
 import LinksMenu from './links-menu';
 import UserMenu from './user-menu';
 import SignOutForm from '@/app/components/auth/sign-out-form';
@@ -10,7 +11,9 @@ export default async function Navbar() {
   return (
     <nav className={styles.container}>
       <div className='section-center'>
-        <h2>Dev Blogs</h2>
+        <Link href='/'>
+          <Logo />
+        </Link>
         <LinksMenu user={user} />
         {user ? (
           <UserMenu user={user}>

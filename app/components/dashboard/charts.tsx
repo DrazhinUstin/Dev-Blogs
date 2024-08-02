@@ -14,7 +14,15 @@ export default async function Charts() {
 
   const barChartData: ChartData<'bar'> = {
     labels: blogsChartData.labels,
-    datasets: [{ label: 'Likes', data: blogsChartData.data, backgroundColor: 'blue' }],
+    datasets: [
+      {
+        label: 'Likes',
+        data: blogsChartData.data,
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1,
+      },
+    ],
   };
 
   const pieChartData: ChartData<'pie'> = {
