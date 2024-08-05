@@ -8,8 +8,14 @@
 }
 
 .image {
+  position: relative;
+  width: 100%;
+  height: 400px;
   margin: 0 auto 2rem;
-  border-radius: var(--border-radius);
+
+  img {
+    object-fit: contain;
+  }
 }
 
 .summary {

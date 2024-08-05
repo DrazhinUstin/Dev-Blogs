@@ -10,12 +10,14 @@ export default function Modal({ children }: { children: React.ReactNode }) {
   const closeModal = () => router.back();
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
-        <button className={styles.close_btn} onClick={closeModal}>
-          <FaXmark />
-        </button>
-        <div>{children}</div>
+    <div>
+      <div className={styles.overlay}>
+        <div className={styles.modal}>
+          <button className={styles.close_btn} onClick={closeModal}>
+            <FaXmark />
+          </button>
+          <div>{children}</div>
+        </div>
       </div>
     </div>
   );

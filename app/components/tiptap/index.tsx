@@ -34,6 +34,7 @@ export default function Editor({
       const html = editor.getHTML();
       handleUpdate(html);
     },
+    immediatelyRender: false,
   });
 
   if (!editor) {

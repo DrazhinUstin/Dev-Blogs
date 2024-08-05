@@ -13,7 +13,7 @@ export async function generateMetadata({ params: { id } }: Props): Promise<Metad
   if (!blog) notFound();
 
   return {
-    title: `Edit ${blog.title}`,
+    title: `Edit "${blog.title}"`,
   };
 }
 

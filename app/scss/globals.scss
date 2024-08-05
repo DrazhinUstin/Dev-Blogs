@@ -28,6 +28,8 @@
   --border-radius-2: 0.5rem;
   --delay: 0.25s;
   --transition: var(--delay) ease-in-out all;
+  --shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  --shadow-2: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 html {

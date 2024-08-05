@@ -39,7 +39,9 @@ export default function BlogDetails({
         </div>
       </div>
       {imageUrl && (
-        <Image src={imageUrl} alt='blog-image' width={400} height={400} className={styles.image} />
+        <div className={styles.image}>
+          <Image src={imageUrl} alt='blog-image' sizes='100vw' fill />
+        </div>
       )}
       <div className='tiptap-output' dangerouslySetInnerHTML={{ __html: content }} />
       <div className={styles.summary}>

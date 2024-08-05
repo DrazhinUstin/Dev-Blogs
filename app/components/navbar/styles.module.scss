@@ -4,7 +4,7 @@
   position: sticky;
   top: 0;
   height: var(--navbar-height);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
   background-color: var(--background-color);
   z-index: 999;
 
@@ -35,7 +35,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
     background-color: var(--color-white);
     transition: var(--transition);
     transition-property: transform;
@@ -120,7 +120,7 @@
     width: max-content;
     padding: 1rem;
     border-radius: var(--border-radius);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-2);
     background-color: var(--background-color);
 
     li:not(:last-child) {

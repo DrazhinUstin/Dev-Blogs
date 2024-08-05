@@ -35,8 +35,7 @@ export default function EditBlogForm({ blog, categories }: { blog: Blog; categor
         <textarea
           name='description'
           id='description'
-          cols={30}
-          rows={10}
+          rows={5}
           defaultValue={blog.description || undefined}
         ></textarea>
         {state.fieldErrors?.description && (
