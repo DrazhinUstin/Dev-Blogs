@@ -66,10 +66,10 @@ export default async function CommentCard({
       {user?.id === userId && (
         <div className={styles.controls}>
           <DeleteCommentForm commentId={id} />
-          <CommentCardEdit commentId={id} commentText={text} />
+          <CommentCardEdit key={id} commentId={id} commentText={text} />
         </div>
       )}
-      {user && user.id !== userId && <CommentCardReply commentId={id} />}
+      {user && user.id !== userId && <CommentCardReply key={id} commentId={id} />}
     </article>
   );
 }

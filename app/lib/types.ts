@@ -30,6 +30,11 @@ export type BlogsPageSearchParams = Omit<BlogFilters, 'userId'> & {
   page?: string;
 };
 
+export type CommentFormState = {
+  error?: { message: string };
+  success?: {};
+};
+
 export type CommentsFilters =
   | {
       blogId: string;

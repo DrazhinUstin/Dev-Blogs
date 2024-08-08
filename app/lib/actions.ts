@@ -7,7 +7,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { BlogFormSchema, ProfileFormSchema, requiredString } from '@/app/lib/schemas';
 import type { Prisma, Blog } from '@prisma/client';
-import type { BlogFormState, ProfileFormState } from './types';
+import type { BlogFormState, CommentFormState, ProfileFormState } from './types';
 
 export async function createBlog(
   prevState: BlogFormState,
@@ -115,12 +115,12 @@ export async function deleteBlog(id: string, imageUrl: Blog['imageUrl'], formDat
 
 export async function addComment(
   blogId: string,
-  prevState: string | undefined,
+  prevState: CommentFormState,
   formData: FormData
-): Promise<string | undefined> {
+): Promise<CommentFormState> {
   const validatedField = requiredString.safeParse(formData.get('text'));
   if (!validatedField.success) {
-    return validatedField.error.errors[0].message;
+    return { error: { message: validatedField.error.errors[0].message } };
   }
   const user = (await auth())?.user;
   if (!user?.id) {
@@ -129,8 +129,9 @@ export async function addComment(
   try {
     await prisma.comment.create({ data: { text: validatedField.data, userId: user.id, blogId } });
     revalidatePath('/');
+    return { success: {} };
   } catch (error) {
-    return 'Database error: Failed to add a comment';
+    return { error: { message: 'Database error: Failed to add a comment' } };
   }
 }
 
